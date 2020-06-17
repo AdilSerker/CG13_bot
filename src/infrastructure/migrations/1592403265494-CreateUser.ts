@@ -10,7 +10,7 @@ export class CreateUser1592403265494 implements MigrationInterface {
                 last_name varchar(255) NOT NULL,
                 username varchar(255) NOT NULL,
                 is_bot boolean NOT NULL,
-                language_code varchar(255) NOT NULL,
+                language_code varchar(255),
                 CONSTRAINT user_pkey PRIMARY KEY (id)
             );
         `);
