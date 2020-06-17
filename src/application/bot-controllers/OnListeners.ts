@@ -6,6 +6,7 @@ import { TelegrafContext } from "telegraf/typings/context";
 import { OnListener } from "../../types";
 
 class Listners {
+    
     static async onMessage(ctx: TelegrafContext) {
 
         console.log('ON MASSAGE', ctx.update);
@@ -43,6 +44,10 @@ class Listners {
 
 export const onListeners: OnListener[] = [
     {
+        updateType: "edited_message",
+        middleware: Listners.onEditMessage
+    },
+    {
         updateType: "message",
         middleware: Listners.onMessage
     },
@@ -53,10 +58,5 @@ export const onListeners: OnListener[] = [
     {
         updateType: "voice",
         middleware: Listners.onVoice
-    },
-    {
-        updateType: "edited_message",
-        middleware: Listners.onEditMessage
     }
-
 ]
