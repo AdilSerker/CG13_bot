@@ -6,10 +6,10 @@ export class CreateUser1592403265494 implements MigrationInterface {
         await queryRunner.query(`
             CREATE TABLE "user" (
                 id varchar(255) NOT NULL,
-                first_name varchar(255) NOT NULL,
-                last_name varchar(255) NOT NULL,
+                first_name varchar(255),
+                last_name varchar(255),
                 username varchar(255) NOT NULL,
-                is_bot boolean NOT NULL,
+                is_bot boolean,
                 language_code varchar(255),
                 CONSTRAINT user_pkey PRIMARY KEY (id)
             );
