@@ -1,3 +1,4 @@
+import { chatRepository } from './../../infrastructure/repositories/ChatRepository';
 import { userRepository } from './../../infrastructure/repositories/UserRepository';
 
 import { TelegrafContext } from "telegraf/typings/context";
@@ -6,13 +7,11 @@ import { OnListener } from "../../types";
 class Listners {
     static async onMessage(ctx: TelegrafContext) {
 
-        const user_from = ctx.update.message.from;
+        const user = ctx.update.message.from;
+        const chat = ctx.update.message.chat;
 
-        const user = await userRepository.get(user_from.id);
-
-        if (!user) {
-            await userRepository.save(user_from);
-        }
+        await userRepository.save(user);
+        await chatRepository.save(chat);
     }
 
     static async onSticker(ctx: TelegrafContext) {
