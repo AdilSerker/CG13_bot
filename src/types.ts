@@ -13,4 +13,7 @@ export type OnListener = {
     middleware: Middleware<TelegrafContext> 
 };
 
-export type TextListener = { [key: string]: Middleware<TelegrafContext> };
+export type TextListener = {
+    match: string,
+    middleware: Middleware<TelegrafContext> 
+};

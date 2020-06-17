@@ -19,7 +19,7 @@ class Handlers {
 export type TelegramBotListeners = {
     commands: CommandListener[],
     onListeners: OnListener[],
-    textListeners: TextListener
+    textListeners: TextListener[]
 }
 
 export function createTelegramBot(listners: TelegramBotListeners): Telegraf<TelegrafContext> {
@@ -50,9 +50,9 @@ function initOnListeners(bot: Telegraf<TelegrafContext>, onListeners: OnListener
     }
 }
 
-function initTextListeners(bot: Telegraf<TelegrafContext>, textListeners: TextListener): void {
-    for (const key in textListeners) {
-        bot.hears(key, textListeners[key]);
+function initTextListeners(bot: Telegraf<TelegrafContext>, textListeners: TextListener[]): void {
+    for (const { match, middleware } of textListeners) {
+        bot.hears(match, middleware);
     }
 }
 
