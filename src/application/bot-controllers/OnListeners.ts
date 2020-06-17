@@ -35,6 +35,10 @@ class Listners {
     static async onVoice(ctx: TelegrafContext) {
         
     }
+
+    static async onEditMessage(ctx: TelegrafContext) {
+        console.log(ctx.update.message);
+    }
 }
 
 export const onListeners: OnListener[] = [
@@ -49,6 +53,10 @@ export const onListeners: OnListener[] = [
     {
         updateType: "voice",
         middleware: Listners.onVoice
+    },
+    {
+        updateType: "edited_message",
+        middleware: Listners.onEditMessage
     }
 
 ]
