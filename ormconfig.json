@@ -1,0 +1,1 @@
+{"type":"postgres","host":"127.0.0.1","database":"cg13db","username":"cg13_bot","password":"123qwe","entities":["dist/infrastructure/models/*.js"],"migrations":["dist/infrastructure/migrations/*.js"],"logging":["error"],"cli":{"migrationsDir":"src/infrastructure/migrations"}}

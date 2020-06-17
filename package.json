@@ -7,7 +7,10 @@
     "start": "bin/environment node ./dist/app",
     "watch": "bin/environment ./node_modules/.bin/nodemon ./dist/app",
     "build": "./node_modules/.bin/tsc",
-    "build-dev": "./node_modules/.bin/tsc --watch"
+    "build-dev": "./node_modules/.bin/tsc --watch",
+    "migrate": "node ./dist/bin/dbConfig > ormconfig.json && node ./node_modules/typeorm/cli migration:run",
+    "migrate-undo": "node ./dist/bin/dbConfig > ormconfig.json && node ./node_modules/typeorm/cli migration:revert",
+    "create-migration": "node ./dist/bin/dbConfig > ormconfig.json && node ./node_modules/typeorm/cli migration:create -n"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -16,9 +19,11 @@
     "express": "^4.16.4",
     "intel": "^1.2.0",
     "morgan": "^1.9.1",
+    "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.7.7",
     "telegraf": "^3.38.0",
+    "typeorm": "^0.2.25",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

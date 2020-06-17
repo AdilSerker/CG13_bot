@@ -5,21 +5,15 @@ import { OnListener } from "../../types";
 
 class Listners {
     static async onMessage(ctx: TelegrafContext) {
-        await ctx.reply('check console');
+        
+    }
 
-        const { from, chat, text } = ctx.update.message;
+    static async onSticker(ctx: TelegrafContext) {
+        
+    }
 
-        const getChat = await ctx.getChat();
-
-        const chatMemebet = await ctx.getChatMember(from.id);
-
-        console.log('FROM', from);
-        console.log('chat', chat);
-        console.log('getChat', getChat);
-
-        console.log('textMessage', text);
-
-        console.log('sender chat member', chatMemebet)
+    static async onVoice(ctx: TelegrafContext) {
+        
     }
 }
 
@@ -28,5 +22,13 @@ export const onListeners: OnListener[] = [
         updateType: "message",
         middleware: Listners.onMessage
     },
+    {
+        updateType: "sticker",
+        middleware: Listners.onSticker
+    },
+    {
+        updateType: "voice",
+        middleware: Listners.onVoice
+    }
 
 ]

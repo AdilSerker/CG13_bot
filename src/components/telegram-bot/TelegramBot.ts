@@ -15,7 +15,6 @@ class Handlers {
     }
 } 
 
-
 export type TelegramBotListeners = {
     commands: CommandListener[],
     onListeners: OnListener[],
@@ -51,7 +50,7 @@ function initOnListeners(bot: Telegraf<TelegrafContext>, onListeners: OnListener
 }
 
 function initTextListeners(bot: Telegraf<TelegrafContext>, textListeners: TextListener[]): void {
-    for (const { match, middleware } of textListeners) {
+    for (let { match, middleware } of textListeners) {
         bot.hears(match, middleware);
     }
 }
