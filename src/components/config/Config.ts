@@ -41,7 +41,7 @@ export class Config {
 	}
 
 	protected defineEnv(): string {
-		let env = process.env.KICKER_ENV;
+		let env = process.env.CG13_ENV;
 
 		if (!env) {
 			env = DEFAULT_ENV;
