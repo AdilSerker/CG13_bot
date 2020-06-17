@@ -19,6 +19,9 @@ export class ChatModel implements Chat {
     @Column("varchar")
     username?: string;
 
+    @Column("varchar")
+    title?: string;
+
     @CreateDateColumn({ name: 'all_members_are_administrators', type: 'boolean' })
     all_members_are_administrators?: boolean;
 }
