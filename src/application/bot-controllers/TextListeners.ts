@@ -3,7 +3,7 @@ import { Middleware } from "telegraf";
 import { TextListener } from "../../types";
 
 export const textListeners: TextListener = {
-    'hi': async (ctx: TelegrafContext) => {
+    'Проверка': async (ctx: TelegrafContext) => {
         await ctx.reply('Welcome');
 
         console.log('hi', JSON.stringify(ctx.update.message));
