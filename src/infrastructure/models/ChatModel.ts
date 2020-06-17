@@ -3,9 +3,9 @@ import { Column, Entity, CreateDateColumn, UpdateDateColumn, PrimaryColumn } fro
 import { Chat } from "telegraf/typings/telegram-types";
 
 @Entity('chat')
-export class ChatModel implements Chat {
-    @PrimaryColumn('bigint')
-    id: number;
+export class ChatModel {
+    @PrimaryColumn('varchar')
+    id: string;
 
     @Column("varchar")
     type: string;

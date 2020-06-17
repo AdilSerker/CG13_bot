@@ -4,7 +4,7 @@ import { ChatModel } from '../models/ChatModel';
 import { Chat } from 'telegraf/typings/telegram-types';
 
 class ChatRepository {
-    public async get(id: number): Promise<Chat> {
+    public async get(id: number): Promise<ChatModel> {
         let chat;
         if (id) {
             chat = await getRepository(ChatModel).findOne(id);
@@ -15,8 +15,8 @@ class ChatRepository {
         return chat;
     }
 
-    public async save(chat: Chat): Promise<Chat> {
-        const chatModel = await getRepository(ChatModel).save(chat);
+    public async save({ id, ...data }: Chat): Promise<ChatModel> {
+        const chatModel = await getRepository(ChatModel).save({ id: id.toString(), ...data });
         
         return chatModel;
     }

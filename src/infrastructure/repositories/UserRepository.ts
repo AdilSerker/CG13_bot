@@ -4,7 +4,7 @@ import { UserModel } from '../models/UserModel';
 import { User } from 'telegraf/typings/telegram-types';
 
 class UserRepository {
-    public async get(id: number): Promise<User> {
+    public async get(id: number): Promise<UserModel> {
         let user;
         if (id) {
             user = await getRepository(UserModel).findOne(id);
@@ -15,10 +15,10 @@ class UserRepository {
         return user;
     }
 
-    public async save(user: User): Promise<User> {
-        const userModel = await getRepository(UserModel).save(user);
-        
-        return userModel;
+    public async save({ id, ...data }: User): Promise<void> {
+
+        const userModel = await getRepository(UserModel).save({ id: id.toString(), ...data });
+
     }
 
     public async delete(id: number): Promise<void> {

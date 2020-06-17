@@ -17,7 +17,7 @@ class Listners {
         await chatRepository.save(chat);
 
         await messageRepository.save({
-            id: messageWithContext.message_id,
+            id: messageWithContext.message_id.toString(),
             chat_id: chat.id,
             user_id: user.id,
             date: messageWithContext.date,

@@ -2,9 +2,9 @@ import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateCol
 import { User } from "telegraf/typings/telegram-types";
 
 @Entity('user')
-export class UserModel implements User {
-    @PrimaryColumn('bigint')
-    id: number;
+export class UserModel {
+    @PrimaryColumn('varchar')
+    id: string;
 
     @Column({ name: 'first_name', type: 'varchar' })
     first_name: string;

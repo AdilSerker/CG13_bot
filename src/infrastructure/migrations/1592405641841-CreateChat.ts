@@ -5,7 +5,7 @@ export class CreateChat1592405641841 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE chat (
-                id bigint NOT NULL,
+                id varchar(255) NOT NULL,
                 type varchar(255) NOT NULL,
                 title varchar(255),
                 username varchar(255),

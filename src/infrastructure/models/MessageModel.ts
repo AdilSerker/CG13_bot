@@ -4,8 +4,8 @@ import { Chat } from "telegraf/typings/telegram-types";
 
 @Entity('message')
 export class MessageModel {
-    @PrimaryColumn('bigint')
-    id: number;
+    @PrimaryColumn('varchar')
+    id: string;
 
     @Column({ name: 'user_id', type: 'bigint' })
     user_id: number;
