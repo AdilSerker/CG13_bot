@@ -8,6 +8,8 @@ import { OnListener } from "../../types";
 class Listners {
     static async onMessage(ctx: TelegrafContext) {
 
+        console.log('ON MASSAGE', ctx.update);
+
         const user = ctx.update.message.from;
         const chat = ctx.update.message.chat;
 

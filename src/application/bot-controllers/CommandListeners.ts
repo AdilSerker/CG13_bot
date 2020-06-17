@@ -21,6 +21,8 @@ function randomInteger(min: number, max: number): number {
 class Listners {
     static async onStats(ctx: TelegrafContext) {
         // await ctx.reply('стата уже собирается, но пока нельзя смотреть');
+
+        console.log('STATS');
     }
 
     static async onBakaRollDigits(ctx: TelegrafContext) {
@@ -28,12 +30,15 @@ class Listners {
         let rand = randomInteger(0, 10);
 
         // await ctx.reply('Держи ' + rand);
+
+        console.log('OnBakaRollDigits', 'Держи ' + rand);
     }
 
     static async onBakaRollYesOrNo(ctx: TelegrafContext) {
 
         let rand = randomInteger(0, 1);
 
+        console.log('onBakaRollYesOrNo', (rand > 0 ? 'Да': 'Нет'));
         // await ctx.reply((rand > 0 ? 'Да': 'Нет') + ' ' + BAD_WORDS[randomInteger(0, BAD_WORDS.length)]);
     }
 }

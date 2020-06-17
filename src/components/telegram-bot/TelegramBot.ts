@@ -9,10 +9,11 @@ const botConfig = <TelegramBotConfig>Config.getInstance().getConfig(ConfigType.T
 class Handlers {
     public static async handlerStart(ctx: TelegrafContext) {
         // await ctx.reply('Всем привет я новенький');
-
+        console.log('START');
     }
     public static async handlerHelp(ctx: TelegrafContext) {
         // await ctx.reply('Сам себе помоги пёс');
+        console.log('HELP');
     }
 } 
 
