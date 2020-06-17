@@ -6,9 +6,7 @@ import { OnListener } from "../../types";
 class Listners {
     static async onMessage(ctx: TelegrafContext) {
 
-
         const user_from = ctx.update.message.from;
-
 
         const user = await userRepository.get(user_from.id);
 

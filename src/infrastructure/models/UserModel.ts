@@ -18,6 +18,6 @@ export class UserModel implements User {
     @CreateDateColumn({ name: 'is_bot', type: 'boolean' })
     is_bot: boolean;
 
-    @UpdateDateColumn({ name: 'language_code', type: 'timestamp' })
+    @UpdateDateColumn({ name: 'language_code', type: 'varchar' })
     language_code: string;
 }
