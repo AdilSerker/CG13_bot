@@ -4,13 +4,13 @@ import { Chat } from "telegraf/typings/telegram-types";
 
 @Entity('message')
 export class MessageModel {
-    @PrimaryColumn('int')
+    @PrimaryColumn('bigint')
     id: number;
 
-    @Column({ name: 'user_id', type: 'int' })
+    @Column({ name: 'user_id', type: 'bigint' })
     user_id: number;
 
-    @Column({ name: 'chat_id', type: 'int' })
+    @Column({ name: 'chat_id', type: 'bigint' })
     chat_id: number;
 
     @Column('int')

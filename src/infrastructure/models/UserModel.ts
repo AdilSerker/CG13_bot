@@ -3,7 +3,7 @@ import { User } from "telegraf/typings/telegram-types";
 
 @Entity('user')
 export class UserModel implements User {
-    @PrimaryColumn('int')
+    @PrimaryColumn('bigint')
     id: number;
 
     @Column({ name: 'first_name', type: 'varchar' })

@@ -5,9 +5,9 @@ export class CreateMessage1592411844478 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE message (
-                id integer NOT NULL,
-                user_id integer NOT NULL references "user"(id),
-                chat_id integer NOT NULL references chat(id),
+                id bigint NOT NULL,
+                user_id bigint NOT NULL references "user"(id),
+                chat_id bigint NOT NULL references chat(id),
                 date integer NOT NULL,
                 sticker boolean,
                 voice boolean,

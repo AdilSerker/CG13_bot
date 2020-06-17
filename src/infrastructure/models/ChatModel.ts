@@ -4,7 +4,7 @@ import { Chat } from "telegraf/typings/telegram-types";
 
 @Entity('chat')
 export class ChatModel implements Chat {
-    @PrimaryColumn('int')
+    @PrimaryColumn('bigint')
     id: number;
 
     @Column("varchar")
