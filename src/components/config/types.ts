@@ -1,6 +1,6 @@
 export enum ConfigType {
 	Server = "server",
-	Crm = "crm"
+	Telegram = 'telegram'
 }
 
 export interface ConfigDictionary {
@@ -14,8 +14,7 @@ export interface ServerConfig extends BaseConfig {
 	port: number;
 }
 
-export interface CrmConfig {
-	host: string;
-	username: string;
-	password: string;
+export interface TelegramBotConfig extends BaseConfig {
+	token: string;
 }
+
