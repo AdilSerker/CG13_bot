@@ -6,6 +6,6 @@ export const textListeners: TextListener = {
     'hi': async (ctx: TelegrafContext) => {
         await ctx.reply('Welcome');
 
-        console.log('hi', ctx);
+        console.log('hi', JSON.stringify(ctx.update.message));
     }
 }

@@ -1,7 +1,6 @@
-import { CommandListener } from './../../types';
-import { UpdateType, MessageSubTypes } from "telegraf/typings/telegram-types";
-import { Middleware } from "telegraf";
 import { TelegrafContext } from "telegraf/typings/context";
+
+import { CommandListener } from './../../types';
 
 class Listners {
     static async onStats(ctx: TelegrafContext) {

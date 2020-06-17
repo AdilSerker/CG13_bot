@@ -6,7 +6,7 @@ import { OnListener } from "../../types";
 class Listners {
     static async onMessage(ctx: TelegrafContext) {
         await ctx.reply('on message');
-        console.log('OnMessage', ctx);
+        console.log('OnMessage', JSON.stringify(ctx.update.message));
     }
 }
 
