@@ -7,10 +7,10 @@ export class MessageModel {
     @PrimaryColumn('int')
     id: number;
 
-    @Column()
+    @Column({ name: 'user_id', type: 'int' })
     user_id: number;
 
-    @Column('int')
+    @Column({ name: 'chat_id', type: 'int' })
     chat_id: number;
 
     @Column('int')
