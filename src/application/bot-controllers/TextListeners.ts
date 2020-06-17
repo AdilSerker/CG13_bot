@@ -6,9 +6,8 @@ export const textListeners: TextListener[] = [
     {
         match: 'Проверка',
         middleware: async (ctx: TelegrafContext) => {
-            await ctx.reply('Welcome');
+            // await ctx.reply('Welcome');
 
-            console.log('Проверка', JSON.stringify(ctx.update.message));
         }
     }
 ];
