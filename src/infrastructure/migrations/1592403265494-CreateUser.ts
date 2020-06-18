@@ -8,7 +8,7 @@ export class CreateUser1592403265494 implements MigrationInterface {
                 id varchar(255) NOT NULL,
                 first_name varchar(255),
                 last_name varchar(255),
-                username varchar(255) NOT NULL,
+                username varchar(255),
                 is_bot boolean,
                 language_code varchar(255),
                 CONSTRAINT user_pkey PRIMARY KEY (id)
