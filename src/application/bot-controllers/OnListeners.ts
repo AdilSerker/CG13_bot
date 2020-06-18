@@ -9,7 +9,7 @@ class Listners {
     
     static async onMessage(ctx: TelegrafContext) {
 
-        console.log('ON MASSAGE', ctx.update);
+        console.log('ON MASSAGE', ctx.update.message.text);
 
         const user = ctx.update.message.from;
         const chat = ctx.update.message.chat;
@@ -25,7 +25,8 @@ class Listners {
             user_id: user.id,
             date: messageWithContext.date,
             sticker: !!messageWithContext.sticker,
-            voice: !!messageWithContext.voice
+            voice: !!messageWithContext.voice,
+            edit: false
         });
     }
 
@@ -38,7 +39,25 @@ class Listners {
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
-        console.log(ctx.update.message);
+        console.log('ON MASSAGE', ctx.update.edited_message.text);
+
+        const user = ctx.update.message.from;
+        const chat = ctx.update.message.chat;
+
+        const messageWithContext = ctx.update.message;
+
+        await userRepository.save(user);
+        await chatRepository.save(chat);
+
+        await messageRepository.save({
+            id: messageWithContext.message_id.toString(),
+            chat_id: chat.id,
+            user_id: user.id,
+            date: messageWithContext.date,
+            sticker: !!messageWithContext.sticker,
+            voice: !!messageWithContext.voice,
+            edit: false
+        });
     }
 }
 

@@ -22,4 +22,7 @@ export class MessageModel {
     @Column('bool')
     voice: boolean;
 
+    @Column('bool')
+    edit: boolean;
+
 }
