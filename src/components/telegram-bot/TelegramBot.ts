@@ -6,16 +6,7 @@ import { CommandListener, OnListener, TextListener } from './../../types';
 
 const botConfig = <TelegramBotConfig>Config.getInstance().getConfig(ConfigType.Telegram);
 
-class Handlers {
-    public static async handlerStart(ctx: TelegrafContext) {
-        // await ctx.reply('Всем привет я новенький');
-        console.log('START');
-    }
-    public static async handlerHelp(ctx: TelegrafContext) {
-        // await ctx.reply('Сам себе помоги пёс');
-        console.log('HELP');
-    }
-} 
+export const bot = new Telegraf(botConfig.token);
 
 export type TelegramBotListeners = {
     commands: CommandListener[],
@@ -24,19 +15,18 @@ export type TelegramBotListeners = {
 }
 
 export function createTelegramBot(listners: TelegramBotListeners): Telegraf<TelegrafContext> {
-    const bot = new Telegraf(botConfig.token);
 
     initHandlers(bot);
     initCommands(bot, listners.commands);
-    initOnListeners(bot, listners.onListeners);
     initTextListeners(bot, listners.textListeners);
+    initOnListeners(bot, listners.onListeners);
 
     return bot;
 }
 
 function initHandlers(bot: Telegraf<TelegrafContext>): void {
-    bot.start(Handlers.handlerStart);
-    bot.help(Handlers.handlerHelp);
+    bot.start(() => { console.log('START'); });
+    bot.help(() => { console.log('HELP'); });
 }
 
 function initCommands(bot: Telegraf<TelegrafContext>, commands: CommandListener[]): void {
