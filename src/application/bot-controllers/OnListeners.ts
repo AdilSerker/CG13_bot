@@ -67,15 +67,15 @@ export const onListeners: OnListener[] = [
         middleware: Listners.onSticker
     },
     {
+        updateType: "voice",
+        middleware: Listners.onVoice
+    },
+    {
         updateType: "edited_message",
         middleware: Listners.onEditMessage
     },
     {
         updateType: "message",
         middleware: Listners.onMessage
-    },
-    {
-        updateType: "voice",
-        middleware: Listners.onVoice
     }
 ]
