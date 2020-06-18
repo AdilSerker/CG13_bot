@@ -19,11 +19,11 @@ class Listners {
 
         const messageWithContext = ctx.update.edited_message;
 
-        await Listners.saveMessage(messageWithContext);
+        await Listners.saveMessage(messageWithContext, true);
     }
 
 
-    private static async saveMessage(messageWithContext: Message) {
+    private static async saveMessage(messageWithContext: Message, edit: boolean = false) {
         const user = messageWithContext.from;
         const chat = messageWithContext.chat;
         await userRepository.save(user);
@@ -40,7 +40,7 @@ class Listners {
             voice: !!messageWithContext.voice,
             photo: !!messageWithContext.photo,
             video: !!messageWithContext.video,
-            edit: false
+            edit
         }
 
         await messageRepository.save(message);
