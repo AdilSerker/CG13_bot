@@ -23,15 +23,16 @@ class Listners {
             id: messageWithContext.message_id.toString(),
             chat_id: chat.id,
             user_id: user.id,
-            date: messageWithContext.date,
             sticker: !!messageWithContext.sticker,
             voice: !!messageWithContext.voice,
+            photo: !!messageWithContext.photo,
+            video: !!messageWithContext.video,
             edit: false
         });
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
-        console.log('EDIT MASSAGE', ctx.update.edited_message.text);
+        console.log('ON MASSAGE', ctx.update.edited_message);
 
         const user = ctx.update.edited_message.from;
         const chat = ctx.update.edited_message.chat;
@@ -48,6 +49,8 @@ class Listners {
             date: messageWithContext.date,
             sticker: !!messageWithContext.sticker,
             voice: !!messageWithContext.voice,
+            photo: !!messageWithContext.photo,
+            video: !!messageWithContext.video,
             edit: true
         });
     }

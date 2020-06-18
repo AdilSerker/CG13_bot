@@ -23,6 +23,12 @@ export class MessageModel {
     voice: boolean;
 
     @Column('bool')
+    video: boolean;
+
+    @Column('bool')
+    photo: boolean;
+
+    @Column('bool')
     edit: boolean;
 
 }
