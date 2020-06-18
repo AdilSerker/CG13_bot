@@ -74,7 +74,6 @@ export const onListeners: OnListener[] = [
         updateType: "message",
         middleware: Listners.onMessage
     },
-    ,
     {
         updateType: "voice",
         middleware: Listners.onVoice
