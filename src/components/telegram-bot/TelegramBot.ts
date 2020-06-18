@@ -16,10 +16,10 @@ export type TelegramBotListeners = {
 
 export function createTelegramBot(listners: TelegramBotListeners): Telegraf<TelegrafContext> {
 
-    initHandlers(bot);
-    initCommands(bot, listners.commands);
-    initOnListeners(bot, listners.onListeners);
-    initTextListeners(bot, listners.textListeners);
+    initHandlers(new Telegraf(botConfig.token));
+    initCommands(new Telegraf(botConfig.token), listners.commands);
+    initOnListeners(new Telegraf(botConfig.token), listners.onListeners);
+    initTextListeners(new Telegraf(botConfig.token), listners.textListeners);
 
     return bot;
 }
