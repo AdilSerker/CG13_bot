@@ -7,11 +7,14 @@ export class MessageModel {
     @PrimaryColumn('varchar')
     id: string;
 
-    @Column({ name: 'user_id', type: 'bigint' })
-    user_id: number;
+    @Column({ name: 'user_id', type: 'varchar' })
+    user_id: string;
 
-    @Column({ name: 'chat_id', type: 'bigint' })
-    chat_id: number;
+    @Column({ name: 'chat_id', type: 'varchar' })
+    chat_id: string;
+
+    @Column({ name: 'reply_to_message', type: 'varchar' })
+    reply_to_message: string;
 
     @Column('int')
     date?: number;

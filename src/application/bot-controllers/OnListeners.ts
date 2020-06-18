@@ -1,3 +1,4 @@
+import { Message } from 'telegraf/typings/telegram-types';
 import { messageRepository } from './../../infrastructure/repositories/MessageRepository';
 import { chatRepository } from './../../infrastructure/repositories/ChatRepository';
 import { userRepository } from './../../infrastructure/repositories/UserRepository';
@@ -9,52 +10,45 @@ class Listners {
     
     static async onMessage(ctx: TelegrafContext) {
 
-        console.log('ON MASSAGE', ctx.update.message);
-
-        const user = ctx.update.message.from;
-        const chat = ctx.update.message.chat;
-
         const messageWithContext = ctx.update.message;
 
+        await Listners.saveMessage(messageWithContext);
+    }
+
+    static async onEditMessage(ctx: TelegrafContext) {
+
+        const messageWithContext = ctx.update.edited_message;
+
+        await Listners.saveMessage(messageWithContext);
+    }
+
+
+    private static async saveMessage(messageWithContext: Message) {
+        const user = messageWithContext.from;
+        const chat = messageWithContext.chat;
         await userRepository.save(user);
         await chatRepository.save(chat);
 
-        await messageRepository.save({
+        const message = {
             id: messageWithContext.message_id.toString(),
-            chat_id: chat.id,
-            user_id: user.id,
+            chat_id: chat.id.toString(),
+            user_id: user.id.toString(),
+            reply_to_message: messageWithContext.reply_to_message &&
+                messageWithContext.reply_to_message.message_id.toString(),
             date: messageWithContext.date,
             sticker: !!messageWithContext.sticker,
             voice: !!messageWithContext.voice,
             photo: !!messageWithContext.photo,
             video: !!messageWithContext.video,
             edit: false
-        });
+        }
+
+        await messageRepository.save(message);
+
+        console.log('MESSAGE');
+        console.log({ ...message, text: messageWithContext.text });
     }
 
-    static async onEditMessage(ctx: TelegrafContext) {
-        console.log('ON MASSAGE', ctx.update.edited_message);
-
-        const user = ctx.update.edited_message.from;
-        const chat = ctx.update.edited_message.chat;
-
-        const messageWithContext = ctx.update.edited_message;
-
-        await userRepository.save(user);
-        await chatRepository.save(chat);
-
-        await messageRepository.save({
-            id: messageWithContext.message_id.toString(),
-            chat_id: chat.id,
-            user_id: user.id,
-            date: messageWithContext.date,
-            sticker: !!messageWithContext.sticker,
-            voice: !!messageWithContext.voice,
-            photo: !!messageWithContext.photo,
-            video: !!messageWithContext.video,
-            edit: true
-        });
-    }
 }
 
 export const onListeners: OnListener[] = [
