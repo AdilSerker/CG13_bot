@@ -41,10 +41,10 @@ class Listners {
     static async onEditMessage(ctx: TelegrafContext) {
         console.log('ON MASSAGE', ctx.update.edited_message.text);
 
-        const user = ctx.update.message.from;
-        const chat = ctx.update.message.chat;
+        const user = ctx.update.edited_message.from;
+        const chat = ctx.update.edited_message.chat;
 
-        const messageWithContext = ctx.update.message;
+        const messageWithContext = ctx.update.edited_message;
 
         await userRepository.save(user);
         await chatRepository.save(chat);
