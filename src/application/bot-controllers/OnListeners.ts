@@ -31,11 +31,11 @@ class Listners {
     }
 
     static async onSticker(ctx: TelegrafContext) {
-        
+        console.log('ON STICKER');
     }
 
     static async onVoice(ctx: TelegrafContext) {
-        
+        console.log('ON VOICE');
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
