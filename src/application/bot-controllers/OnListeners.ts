@@ -39,7 +39,7 @@ class Listners {
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
-        console.log('ON MASSAGE', ctx.update.edited_message.text);
+        console.log('EDIT MASSAGE', ctx.update.edited_message.text);
 
         const user = ctx.update.edited_message.from;
         const chat = ctx.update.edited_message.chat;
@@ -56,7 +56,7 @@ class Listners {
             date: messageWithContext.date,
             sticker: !!messageWithContext.sticker,
             voice: !!messageWithContext.voice,
-            edit: false
+            edit: true
         });
     }
 }
