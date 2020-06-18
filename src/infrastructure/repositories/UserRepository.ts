@@ -16,8 +16,12 @@ class UserRepository {
     }
 
     public async save({ id, ...data }: User): Promise<void> {
-
-        const userModel = await getRepository(UserModel).save({ id: id.toString(), ...data });
+        let user = await getRepository(UserModel).findOne(id.toString());
+        if (user) {
+            await getRepository(UserModel).update(id.toString(), { id: id.toString(), ...data });
+        } else {
+            await getRepository(UserModel).save({ id: id.toString(), ...data });
+        }
 
     }
 

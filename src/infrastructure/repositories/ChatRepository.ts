@@ -15,10 +15,12 @@ class ChatRepository {
         return chat;
     }
 
-    public async save({ id, ...data }: Chat): Promise<ChatModel> {
-        const chatModel = await getRepository(ChatModel).save({ id: id.toString(), ...data });
+    public async save({ id, ...data }: Chat): Promise<void> {
+        let chat = await getRepository(ChatModel).findOne(id.toString());
         
-        return chatModel;
+        chat ? await getRepository(ChatModel).update(id.toString(), { id: id.toString(), ...data }) :
+            await getRepository(ChatModel).save({ id: id.toString(), ...data });
+        
     }
 
     public async delete(id: number): Promise<void> {
