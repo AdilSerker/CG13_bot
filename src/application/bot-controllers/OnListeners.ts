@@ -63,6 +63,10 @@ class Listners {
 
 export const onListeners: OnListener[] = [
     {
+        updateType: "sticker",
+        middleware: Listners.onSticker
+    },
+    {
         updateType: "edited_message",
         middleware: Listners.onEditMessage
     },
@@ -70,10 +74,7 @@ export const onListeners: OnListener[] = [
         updateType: "message",
         middleware: Listners.onMessage
     },
-    {
-        updateType: "sticker",
-        middleware: Listners.onSticker
-    },
+    ,
     {
         updateType: "voice",
         middleware: Listners.onVoice
