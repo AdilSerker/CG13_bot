@@ -18,8 +18,8 @@ export function createTelegramBot(listners: TelegramBotListeners): Telegraf<Tele
 
     initHandlers(bot);
     initCommands(bot, listners.commands);
-    initOnListeners(bot, listners.onListeners);
     initTextListeners(bot, listners.textListeners);
+    initOnListeners(bot, listners.onListeners);
 
     return bot;
 }

@@ -14,6 +14,6 @@ export type OnListener = {
 };
 
 export type TextListener = {
-    match: string,
+    match: string | string[] | RegExp | RegExp[],
     middleware: Middleware<TelegrafContext> 
 };
