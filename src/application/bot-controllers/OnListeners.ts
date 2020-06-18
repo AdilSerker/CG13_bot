@@ -23,6 +23,7 @@ class Listners {
             id: messageWithContext.message_id.toString(),
             chat_id: chat.id,
             user_id: user.id,
+            date: messageWithContext.date,
             sticker: !!messageWithContext.sticker,
             voice: !!messageWithContext.voice,
             photo: !!messageWithContext.photo,
