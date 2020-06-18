@@ -1,6 +1,7 @@
 import { TelegrafContext } from "telegraf/typings/context";
 
 import { CommandListener } from './../../types';
+import { randomInteger } from "../../components/utils/randomize";
 
 const BAD_WORDS = [
     'ебать',
@@ -11,12 +12,7 @@ const BAD_WORDS = [
     'ебанарот',
     'епта',
     'хуле'
-]
-
-function randomInteger(min: number, max: number): number {
-    let rand = min - 0.5 + Math.random() * (max - min + 1);
-    return Math.round(rand);
-}
+];
 
 class Listners {
     static async onStats(ctx: TelegrafContext) {
