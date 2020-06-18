@@ -9,7 +9,7 @@ class Listners {
     
     static async onMessage(ctx: TelegrafContext) {
 
-        console.log('ON MASSAGE', ctx.update.message.text);
+        console.log('ON MASSAGE', ctx.update.message);
 
         const user = ctx.update.message.from;
         const chat = ctx.update.message.chat;
@@ -28,14 +28,6 @@ class Listners {
             voice: !!messageWithContext.voice,
             edit: false
         });
-    }
-
-    static async onSticker(ctx: TelegrafContext) {
-        console.log('ON STICKER');
-    }
-
-    static async onVoice(ctx: TelegrafContext) {
-        console.log('ON VOICE');
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
@@ -63,12 +55,8 @@ class Listners {
 
 export const onListeners: OnListener[] = [
     {
-        updateType: "sticker",
-        middleware: Listners.onSticker
-    },
-    {
-        updateType: "voice",
-        middleware: Listners.onVoice
+        updateType: ["sticker", "voice", "video", "photo", "text"],
+        middleware: Listners.onMessage
     },
     {
         updateType: "edited_message",

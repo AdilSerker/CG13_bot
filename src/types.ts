@@ -9,7 +9,7 @@ export type CommandListener = {
 };
 
 export type OnListener = { 
-    updateType: UpdateType | MessageSubTypes, 
+    updateType: | UpdateType | UpdateType[] | MessageSubTypes | MessageSubTypes[], 
     middleware: Middleware<TelegrafContext> 
 };
 
