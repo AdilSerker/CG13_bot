@@ -6,7 +6,6 @@ import { messageRepository } from './../../infrastructure/repositories/MessageRe
 
 const AGGRESSIVE_REPLAY = [
     'анус себе забань пес',
-    'скажи кого забанить и я его виебу',
     'CЛЫШЬ ТЕ ВЪЕБАТЬ?!',
     'зачем ты меня расстраиваешь сука',
     'правильно, он вроде еще и блендераст',
@@ -14,8 +13,28 @@ const AGGRESSIVE_REPLAY = [
     'можно еще пару максеров захватить',
     'осуждаю',
     'одобряю эту идею',
-    'давай лучше отпиздим'
+    'давай лучше отпиздим',
+    'Я тебе щас баном по губам повожу'
 ];
+
+const WEED_REPLAY = [
+    'есть че?',
+    'когда легалайз?',
+    'псс, пыхнуть хотите?',
+    '4:20'
+];
+
+const ANSWERS_3DSOFT = [
+    'а как какать?',
+    'есть один курс, могу ссылочку с персии продать, за символические 70$'
+];
+
+const TUTOR_REPLAY = [
+    'жопу вытирать',
+    'срать',
+    'быть тупым кожанным мешком',
+    'моделить жопой'
+]
 
 class Listners {
     static async matchBan(ctx: TelegrafContext) {
@@ -35,10 +54,37 @@ class Listners {
         const randomInt = randomInteger(0, 100);
 
         if (randomInt > 70) {
-            await ctx.reply('АХААХАХАХА');
+            await ctx.reply('ПХАХАХАХАХАХП');
         }
     }
 
+    static async matchSecret(ctx: TelegrafContext) {
+        await ctx.reply('н҉̢̖͕͙͙̳͕͕̲͙̱̰͔͕͈е̵̨̜͓̦͖̙̖̜͎̱͍ с҉̢̭̝͍̱̥̮͕̯̲̩ͅт̶̡̜͕͔̗̟͖̩͕о̶̦͚̣̫͍͍̮̭͖̳͍̠͢и̴̳̬͕͙̘̖͉̭̥͓̳͉͔̫̭͢ͅт҈͔̮̦͎̗̳̬̤̳͓̭̜͎̖̟͢' + ' ' + 'в҈͙̯͉̮̯͐̀̋̋̿͊̐̌̃с҈̞̬͉̩̱͙̜̱̿̓͐͋̚ͅк҈̣̦̤͎̠͕̠͔̭̠̪̀́̐̂͑͌͂͂р̵̠̖̞̘͈̟̙̗̃̅̆̒̿̀̇̍̚ы̶̤̝͕͇̞͓͛͐̂̓̉̔в̴̯̘̱̟̞̮͉̦͙͑́̅́̂̋͛̽а̷͈̝̗̬͍̒̋̄͌̓̽͌ͅͅͅт҉͖̟̳̭̝̠̣̎̎͂͊͆̓ь̷̗̮̬̮̓͑̂́̈́̆̈́ͅ');
+    }
+
+    static async matchQuestion(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 50) {
+            await ctx.reply(ANSWERS_3DSOFT[randomInteger(0, ANSWERS_3DSOFT.length - 1)]);
+        }
+    }
+
+    static async matchBake(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 50) {
+            await ctx.reply('Анус себе запеки!');
+        }
+    }
+
+    static async matchWeed(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 50 && ctx.update.message.from.id === 230392366) {
+            await ctx.reply(WEED_REPLAY[randomInteger(0, WEED_REPLAY.length - 1)]);
+        }
+    }
+
+    static async matchTutor(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 70) {
+            await ctx.reply(WEED_REPLAY[randomInteger(0, WEED_REPLAY.length - 1)] + 'ты тоже по туторам учился?');
+        }
+    }
 }
 
 export const textListeners: TextListener[] = [
@@ -51,7 +97,19 @@ export const textListeners: TextListener[] = [
         middleware: Listners.matchBan
     },
     {
+        match: [/(как.*запечь)/i, /запек/i, /бейк/i],
+        middleware: Listners.matchBake
+    },
+    {
         match: [/ахаха/i],
         middleware: Listners.matchLough
+    },
+    {
+        match: [/в праг/i,/чехи/i,/Прага/i,],
+        middleware: Listners.matchWeed
+    },
+    {
+        match: [/(как.*делать)/i, /(как.*сделать)/i, /(как.*замоделить)/i, /(как.*в майе)/i, /(как.*в зебре)/i],
+        middleware: Listners.matchQuestion
     }
 ];
