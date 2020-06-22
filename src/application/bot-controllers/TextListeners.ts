@@ -82,7 +82,7 @@ class Listners {
 
     static async matchTutor(ctx: TelegrafContext) {
         if (randomInteger(0, 100) > 70) {
-            await ctx.reply(WEED_REPLAY[randomInteger(0, WEED_REPLAY.length - 1)] + 'ты тоже по туторам учился?');
+            await ctx.reply('A ' + TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)] + 'ты тоже по туторам учился?');
         }
     }
 }
@@ -99,6 +99,10 @@ export const textListeners: TextListener[] = [
     {
         match: [/(как.*запечь)/i, /запек/i, /бейк/i],
         middleware: Listners.matchBake
+    },
+    {
+        match: [/тутор/i, /урок/i, /курс/i],
+        middleware: Listners.matchTutor
     },
     {
         match: [/ахаха/i],

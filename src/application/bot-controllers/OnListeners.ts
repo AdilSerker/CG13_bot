@@ -20,7 +20,7 @@ class Listners {
 
             let concreteWord = finalString.split(' ');
             if (concreteWord.length === 1 && randomInteger(0, 100) > 90) {
-                await ctx.reply(Listners.concrete(concreteWord[0]));
+                await ctx.reply(Listners.concrete(concreteWord[0].toLowerCase()));
             }
         }
     }
@@ -39,13 +39,16 @@ class Listners {
                 return 'Xyя' + '' + text.slice(i+1) + '!1';
             }
             if (text[i] === 'э' || text[i] === 'е') {
-                return 'Xyе' + '' + text.slice(i+1) + '!1';
+                return 'Xyе' + '' + text.slice(i+1) + '!!1';
             }
             if (text[i] === 'у' || text[i] === 'ю') {
-                return 'Xyю' + '' + text.slice(i+1) + '!1';
+                return 'Xyю' + '' + text.slice(i+1) + '!!1';
             }
             if (text[i] === 'о' || text[i] === 'е') {
-                return 'Xyё' + '' + text.slice(i+1) + '!1';
+                return 'Xyё' + '' + text.slice(i+1) + '!11';
+            }
+            if (text[i] === 'ы' || text[i] === 'и') {
+                return 'Xyи' + '' + text.slice(i+1) + '!11';
             }
         }
         return 'Xyй1';
