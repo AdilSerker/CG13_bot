@@ -19,7 +19,7 @@ class Listners {
             let finalString = punctuationless.replace(/\s{2,}/g, ' ');
 
             let concreteWord = finalString.split(' ');
-            if (concreteWord.length === 1 && randomInteger(0, 100) > 70) {
+            if (concreteWord.length === 1 && randomInteger(0, 100) > 90) {
                 await ctx.reply(Listners.concrete(concreteWord[0]));
             }
         }
