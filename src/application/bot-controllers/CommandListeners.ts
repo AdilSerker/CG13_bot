@@ -25,17 +25,14 @@ class Listners {
 
         let rand = randomInteger(0, 10);
 
-        // await ctx.reply('Держи ' + rand);
-
-        console.log('OnBakaRollDigits', 'Держи ' + rand);
+        await ctx.reply('Держи ' + rand);
     }
 
     static async onBakaRollYesOrNo(ctx: TelegrafContext) {
 
         let rand = randomInteger(0, 1);
 
-        console.log('onBakaRollYesOrNo', (rand > 0 ? 'Да': 'Нет'));
-        // await ctx.reply((rand > 0 ? 'Да': 'Нет') + ' ' + BAD_WORDS[randomInteger(0, BAD_WORDS.length)]);
+        await ctx.reply((rand > 0 ? 'Да': 'Нет') + ' ' + BAD_WORDS[randomInteger(0, BAD_WORDS.length)]);
     }
 }
 
@@ -45,11 +42,11 @@ export const commands: CommandListener[] = [
         middleware: Listners.onStats
     },
     {
-        command: "/baka_roll_digits",
+        command: "/random_number",
         middleware: Listners.onBakaRollDigits
     },
     {
-        command: "/baka_roll_yes_or_no",
+        command: "/yes_or_no",
         middleware: Listners.onBakaRollYesOrNo
     }
 
