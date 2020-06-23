@@ -34,6 +34,10 @@ const TUTOR_REPLAY = [
     'срать',
     'быть тупым кожанным мешком',
     'моделить жопой'
+];
+
+const BLENDER_REPLAY = [
+    'Я тебе щас колено прострелю!'
 ]
 
 class Listners {
@@ -85,6 +89,12 @@ class Listners {
             await ctx.reply('A ' + TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)] + 'ты тоже по туторам учился?');
         }
     }
+
+    static async matchBlender(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 70) {
+            await ctx.reply(BLENDER_REPLAY[randomInteger(0, BLENDER_REPLAY.length - 1)]);
+        }
+    }
 }
 
 export const textListeners: TextListener[] = [
@@ -115,5 +125,9 @@ export const textListeners: TextListener[] = [
     {
         match: [/(как.*делать)/i, /(как.*сделать)/i, /(как.*замоделить)/i, /(как.*в майе)/i, /(как.*в зебре)/i],
         middleware: Listners.matchQuestion
+    },
+    {
+        match: [/blender/i, /блендер/i],
+        middleware: Listners.matchBlender
     }
 ];
