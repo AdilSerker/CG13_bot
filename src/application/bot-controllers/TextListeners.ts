@@ -145,6 +145,6 @@ export const textListeners: TextListener[] = [
     },
     {
         match: [/(пойдем.в диск*)/i, /(го.в диск*)/i, /(в диск.?)/i],
-        middleware: Listners.matchBlender
+        middleware: Listners.matchDiscord
     }
 ];
