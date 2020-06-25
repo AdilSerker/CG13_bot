@@ -32,7 +32,7 @@ class Listners {
 
         let rand = randomInteger(0, 1);
 
-        await ctx.reply((rand > 0 ? 'Да': 'Нет') + ' ' + BAD_WORDS[randomInteger(0, BAD_WORDS.length)]);
+        await ctx.reply((rand > 0 ? 'Да': 'Нет') + ' ' + BAD_WORDS[randomInteger(0, BAD_WORDS.length - 1)]);
     }
 }
 

@@ -32,13 +32,20 @@ const ANSWERS_3DSOFT = [
 const TUTOR_REPLAY = [
     'жопу вытирать',
     'срать',
-    'быть тупым кожанным мешком',
+    'быть тупым кожаным мешком',
     'моделить жопой'
 ];
 
 const BLENDER_REPLAY = [
     'Я тебе щас колено прострелю!'
-]
+];
+
+const DISCORD_REPLAY = [
+    'А сколько токенов стоит приват?',
+    'Пойду в дискорд только если ты покажешь мне болт',
+    'Пойду в дискорд только если ты посмотришь на мой болт',
+    'Да ты же бот, о чем с тобой там разговаривать?!'
+];
 
 class Listners {
     static async matchBan(ctx: TelegrafContext) {
@@ -86,13 +93,19 @@ class Listners {
 
     static async matchTutor(ctx: TelegrafContext) {
         if (randomInteger(0, 100) > 70) {
-            await ctx.reply('A ' + TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)] + 'ты тоже по туторам учился?');
+            await ctx.reply('A ' + TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)] + ' ты тоже по туторам учился?');
         }
     }
 
     static async matchBlender(ctx: TelegrafContext) {
         if (randomInteger(0, 100) > 70) {
             await ctx.reply(BLENDER_REPLAY[randomInteger(0, BLENDER_REPLAY.length - 1)]);
+        }
+    }
+
+    static async matchDiscord(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 80) {
+            await ctx.reply(DISCORD_REPLAY[randomInteger(0, DISCORD_REPLAY.length - 1)]);
         }
     }
 }
@@ -128,6 +141,10 @@ export const textListeners: TextListener[] = [
     },
     {
         match: [/blender/i, /блендер/i],
+        middleware: Listners.matchBlender
+    },
+    {
+        match: [/(пойдем.в диск*)/i, /(го.в диск*)/i, /(в диск.?)/i],
         middleware: Listners.matchBlender
     }
 ];
