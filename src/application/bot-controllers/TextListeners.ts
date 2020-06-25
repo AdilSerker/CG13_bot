@@ -47,6 +47,10 @@ const DISCORD_REPLAY = [
     'Да ты же бот, о чем с тобой там разговаривать?!'
 ];
 
+const AUE_REPLAY = [
+    'ЖИЗНЬ ПЛЮСАМ, СМЕРТЬ ШАРПАМ'
+];
+
 class Listners {
     static async matchBan(ctx: TelegrafContext) {
         messageRepository.saveMessage(ctx.update.message);
@@ -108,6 +112,12 @@ class Listners {
             await ctx.reply(DISCORD_REPLAY[randomInteger(0, DISCORD_REPLAY.length - 1)]);
         }
     }
+
+    static async matchAye(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 50) {
+            await ctx.reply(AUE_REPLAY[randomInteger(0, AUE_REPLAY.length - 1)]);
+        }
+    }
 }
 
 export const textListeners: TextListener[] = [
@@ -146,5 +156,9 @@ export const textListeners: TextListener[] = [
     {
         match: [/(пойдем.в диск*)/i, /(го.в диск*)/i, /(в диск.?)/i],
         middleware: Listners.matchDiscord
+    },
+    {
+        match: [/( ауе )/i],
+        middleware: Listners.matchAye
     }
 ];
