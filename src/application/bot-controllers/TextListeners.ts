@@ -158,7 +158,11 @@ export const textListeners: TextListener[] = [
         middleware: Listners.matchDiscord
     },
     {
-        match: [/( ауе )/i],
+        match: [/( ауе)/i, /(ауе )/i],
+        middleware: Listners.matchAye
+    },
+    {
+        match: ['ауе', 'Ауе', 'АУЕ'],
         middleware: Listners.matchAye
     }
 ];
