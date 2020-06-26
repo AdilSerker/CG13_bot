@@ -1,6 +1,6 @@
 import { JaguarStatModel } from './../../infrastructure/models/JaguarStatModel';
 import { plainToClass } from 'class-transformer';
-import { JsonController, Post, Body, Get } from "routing-controllers";
+import { JsonController, Post, Body, Get, OnUndefined } from "routing-controllers";
 import { jaguarStatRepository } from "../../infrastructure/repositories/JaguarStatRepository";
 
 @JsonController('/jaguar')
@@ -10,6 +10,7 @@ export class Controller {
         return 1;
     }
 
+    @OnUndefined(204)
     @Post('/')
     public async saveStat(
         @Body() stat: {
@@ -23,6 +24,8 @@ export class Controller {
 
     @Get('/')
     public async getLeaderBoard() {
-        return jaguarStatRepository.get();
+        return {
+            stats: await jaguarStatRepository.get()
+        }
     }
 }
