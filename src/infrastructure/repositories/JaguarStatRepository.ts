@@ -3,9 +3,9 @@ import { getRepository } from 'typeorm';
 import { JaguarStatModel } from '../models/JaguarStatModel';
 
 class JaguarStatRepository {
-    public async get(id: number): Promise<JaguarStatModel> {
+    public async get(): Promise<JaguarStatModel[]> {
 
-        return null;
+        return getRepository(JaguarStatModel).find();
     }
 
     public async save(stat: JaguarStatModel): Promise<void> {

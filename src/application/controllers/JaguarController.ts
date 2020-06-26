@@ -6,7 +6,7 @@ import { jaguarStatRepository } from "../../infrastructure/repositories/JaguarSt
 @JsonController('/jaguar')
 export class Controller {
     @Get('/check')
-    public async test(): Promise<number> {
+    public async check(): Promise<number> {
         return 1;
     }
 
@@ -19,5 +19,10 @@ export class Controller {
         }
     ) : Promise<void> {
         await jaguarStatRepository.save(plainToClass(JaguarStatModel, stat));
+    }
+
+    @Get('/')
+    public async getLeaderBoard() {
+        return jaguarStatRepository.get();
     }
 }
