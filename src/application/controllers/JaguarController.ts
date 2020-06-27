@@ -24,8 +24,12 @@ export class Controller {
 
     @Get('/')
     public async getLeaderBoard() {
+        const list = await jaguarStatRepository.get();
+
+        const sortedByTryCount = list.sort((a, b) => a.try_count - b.try_count);
+
         return {
-            stats: await jaguarStatRepository.get()
+            stats: sortedByTryCount
         }
     }
 }
