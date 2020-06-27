@@ -5,13 +5,11 @@ export function formatTimeStringToSeconds(timeString: string): number {
 }
 
 export function formatSecondsToTimeString(seconds: number): string {
-    console.log('IN SECONDS', seconds);
     const min = Math.floor(seconds/60);
 
     const sec = Math.floor(seconds%60);
 
-    const ms = (seconds%60).toString().split('.')[1].slice(0,2);
+    const ms = (seconds%60).toString().split('.')[1].slice(0,3);
 
-    console.log('OUT TIME STRING', `${min}:${sec}:${ms}`);
-    return `${min}:${sec}:${ms}`;
+    return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}:${ms}`;
 }
