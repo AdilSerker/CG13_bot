@@ -1,8 +1,6 @@
 export function formatTimeStringToSeconds(timeString: string): number {
-    console.log('IN TIME_STRING', timeString)
     const [min, sec, ms] = timeString.split(':');
 
-    console.log('OUT IN SECONDS', Number(min) * 60 + Number(sec) + Number(ms) / 1000);
     return Number(min) * 60 + Number(sec) + Number(ms) / 1000;
 }
 
