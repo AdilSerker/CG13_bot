@@ -1,5 +1,6 @@
 import { TelegrafContext } from "telegraf/typings/context";
 
+import { artStationService } from './../../infrastructure/services/ArtStationService';
 import { CommandListener } from './../../types';
 import { randomInteger } from "../../components/utils/randomize";
 
@@ -34,6 +35,17 @@ class Listners {
 
         await ctx.reply((rand > 0 ? 'Да': 'Нет') + ' ' + BAD_WORDS[randomInteger(0, BAD_WORDS.length - 1)]);
     }
+
+    static async onArtStationRandom(ctx: TelegrafContext) {
+        const work = await artStationService.getRandomWork();
+
+        await ctx.replyWithPhoto({
+            url: work.cover.small_square_url,
+            filename: 'preview'
+        }, {
+            caption: work.title + '\n' + work.permalink
+        });
+    }
 }
 
 export const commands: CommandListener[] = [
@@ -48,6 +60,10 @@ export const commands: CommandListener[] = [
     {
         command: "/yes_or_no",
         middleware: Listners.onBakaRollYesOrNo
+    },
+    {
+        command: "/randstation",
+        middleware: Listners.onArtStationRandom
     }
 
 ]

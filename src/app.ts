@@ -25,7 +25,9 @@ const bot = createTelegramBot({
 	commands,
 	onListeners,
 	textListeners
-})
+});
+
+import './components/sheduler/sheduler';
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
