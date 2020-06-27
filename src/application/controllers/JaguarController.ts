@@ -57,15 +57,6 @@ export class Controller {
             sortedList.push(...value.sort((a, b) => a.time - b.time));
         }
 
-        console.log({
-            stats: sortedList.map(({ time, ...data }) => {
-                return {
-                    ...data,
-                    time: formatSecondsToTimeString(time)
-                }
-            })
-        });
-
         return {
             stats: sortedList.map(({ time, ...data }) => {
                 return {
