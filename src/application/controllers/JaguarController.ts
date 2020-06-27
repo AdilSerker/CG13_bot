@@ -2,6 +2,14 @@ import { JaguarStatModel } from './../../infrastructure/models/JaguarStatModel';
 import { plainToClass } from 'class-transformer';
 import { JsonController, Post, Body, Get, OnUndefined } from "routing-controllers";
 import { jaguarStatRepository } from "../../infrastructure/repositories/JaguarStatRepository";
+import { formatTimeStringToSeconds, formatSecondsToTimeString } from '../../components/utils/formatString';
+
+type StatSeconds = {
+    time: number;
+    id: number;
+    name: string;
+    try_count: number;
+};
 
 @JsonController('/jaguar')
 export class Controller {
@@ -25,11 +33,37 @@ export class Controller {
     @Get('/')
     public async getLeaderBoard() {
         const list = await jaguarStatRepository.get();
+        const listWithTimeInSeconds = list.map(({ time, ...data }) => {
+            return {
+                ...data,
+                time: formatTimeStringToSeconds(time)
+            }
+        })
 
-        const sortedByTryCount = list.sort((a, b) => a.try_count - b.try_count);
+        const sortedByTryCount = listWithTimeInSeconds.sort((a, b) => a.try_count - b.try_count);
+
+        const mapStateByTryCount = sortedByTryCount.reduce((aggr, item) => {
+            if (!aggr.get(item.try_count)) {
+                aggr.set(item.try_count, []);
+            } else {
+                aggr.set(item.try_count, [...aggr.get(item.try_count), item])
+            }
+            return aggr;
+        }, new Map<number, StatSeconds[]>());
+
+        const sortedList: StatSeconds[] = [];
+
+        for (const [, value] of mapStateByTryCount) {
+            sortedByTryCount.push(...value.sort((a, b) => a.time - b.time));
+        }
 
         return {
-            stats: sortedByTryCount
+            stats: sortedList.map(({ time, ...data }) => {
+                return {
+                    ...data,
+                    time: formatSecondsToTimeString(time)
+                }
+            })
         }
     }
 }
