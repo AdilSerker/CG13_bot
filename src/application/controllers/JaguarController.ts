@@ -38,7 +38,7 @@ export class Controller {
                 ...data,
                 time: formatTimeStringToSeconds(time)
             }
-        })
+        });
 
         const sortedByTryCount = listWithTimeInSeconds.sort((a, b) => a.try_count - b.try_count);
 
@@ -54,7 +54,7 @@ export class Controller {
         const sortedList: StatSeconds[] = [];
 
         for (const [, value] of mapStateByTryCount) {
-            sortedByTryCount.push(...value.sort((a, b) => a.time - b.time));
+            sortedList.push(...value.sort((a, b) => a.time - b.time));
         }
 
         console.log({
