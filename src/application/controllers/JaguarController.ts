@@ -56,22 +56,27 @@ export class Controller {
         for (const [, value] of mapStateByTryCount) {
             sortedList.push(...value.sort((a, b) => a.time - b.time));
         }
-        console.log({
-            stats: sortedList.map(({ time, ...data }) => {
-                return {
-                    ...data,
-                    time: formatSecondsToTimeString(time)
-                }
-            })
-        });
 
-        return {
-            stats: sortedList.map(({ time, ...data }) => {
-                return {
-                    ...data,
-                    time: formatSecondsToTimeString(time)
-                }
-            })
+        try {
+            return {
+                stats: sortedList.map(({ time, ...data }) => {
+                    return {
+                        ...data,
+                        time: formatSecondsToTimeString(time)
+                    }
+                })
+            }
+            
+        } catch (error) {
+            return {
+                stats: sortedList.map(({ time, ...data }) => {
+                    return {
+                        ...data,
+                        time: formatSecondsToTimeString(time)
+                    }
+                })
+            }
         }
+
     }
 }
