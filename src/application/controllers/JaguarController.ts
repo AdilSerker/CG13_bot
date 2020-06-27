@@ -41,13 +41,13 @@ export class Controller {
         });
 
         const sortedByTryCount = listWithTimeInSeconds.sort((a, b) => a.try_count - b.try_count);
-
+        
         const mapStateByTryCount = sortedByTryCount.reduce((aggr, item) => {
             if (!aggr.get(item.try_count)) {
                 aggr.set(item.try_count, []);
-            } else {
-                aggr.set(item.try_count, [...aggr.get(item.try_count), item])
             }
+            aggr.set(item.try_count, [...aggr.get(item.try_count), item]);
+
             return aggr;
         }, new Map<number, StatSeconds[]>());
 
