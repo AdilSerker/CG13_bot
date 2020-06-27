@@ -10,7 +10,7 @@ export function formatSecondsToTimeString(seconds: number): string {
     console.log('MIN', min);
     const sec = Math.floor(seconds%60);
     console.log('SEC', Math.floor(seconds%60));
-    const ms = Math.floor(seconds%60).toString().split(',')[1].slice(0,2);
+    const ms = Math.floor(seconds%60).toString().split('.')[1].slice(0,2);
     console.log('MS', Math.floor(seconds%60).toString());
 
     return `${min}:${sec}:${ms}`;
