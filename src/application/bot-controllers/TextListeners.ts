@@ -21,7 +21,8 @@ const WEED_REPLAY = [
     'есть че?',
     'когда легалайз?',
     'псс, пыхнуть хотите?',
-    '4:20'
+    '4:20',
+    'уже приколотил в штакет'
 ];
 
 const ANSWERS_3DSOFT = [
@@ -30,10 +31,10 @@ const ANSWERS_3DSOFT = [
 ];
 
 const TUTOR_REPLAY = [
-    'жопу вытирать',
-    'срать',
-    'быть тупым кожаным мешком',
-    'моделить жопой'
+    'А срать ты тоже по туторам училс?',
+    'Быть тупым кожаным мешком твое призвание',
+    'Биологическая форма жизни обречена на провал',
+    'Я бы посоветовал не останавливаться в накапливании всевозможных туториалов. Чем больше туториалов тем лучше.\nОдин купленный тутор сразу +10 к iq. \nНе останавливайся на достигнутом мешок'
 ];
 
 const BLENDER_REPLAY = [
@@ -41,10 +42,7 @@ const BLENDER_REPLAY = [
 ];
 
 const DISCORD_REPLAY = [
-    'А сколько токенов стоит приват?',
-    'Пойду в дискорд только если ты покажешь мне болт',
-    'Пойду в дискорд только если ты посмотришь на мой болт',
-    'Да ты же бот, о чем с тобой там разговаривать?!'
+    'Будешь показывать болт?'
 ];
 
 const AUE_REPLAY = [
@@ -90,14 +88,14 @@ class Listners {
     }
 
     static async matchWeed(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 50 && ctx.update.message.from.id === 230392366) {
+        if (randomInteger(0, 100) > 90 || randomInteger(0, 100) > 50 && ctx.update.message.from.id === 230392366) {
             await ctx.reply(WEED_REPLAY[randomInteger(0, WEED_REPLAY.length - 1)]);
         }
     }
 
     static async matchTutor(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 70) {
-            await ctx.reply('A ' + TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)] + ' ты тоже по туторам учился?');
+        if (randomInteger(0, 100) > 70 || randomInteger(0, 100) > 50 && ctx.update.message.from.id === 341554801) {
+            await ctx.reply(TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)]);
         }
     }
 
@@ -108,13 +106,13 @@ class Listners {
     }
 
     static async matchDiscord(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 80) {
+        if (randomInteger(0, 100) > 90) {
             await ctx.reply(DISCORD_REPLAY[randomInteger(0, DISCORD_REPLAY.length - 1)]);
         }
     }
 
     static async matchAye(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 50) {
+        if (randomInteger(0, 100) > 70) {
             await ctx.reply(AUE_REPLAY[randomInteger(0, AUE_REPLAY.length - 1)]);
         }
     }
