@@ -60,6 +60,10 @@ class Listners {
         }
 
     }
+
+    static async onIdeas(ctx: TelegrafContext) {
+        await ctx.reply('https://docs.google.com/spreadsheets/d/13NG5aS4Tdcrqqmbm4z-cK8O-P7AlNDNHfG6Y7F0wm6Q/edit?usp=sharing');
+    }
 }
 
 export const commands: CommandListener[] = [
@@ -82,6 +86,10 @@ export const commands: CommandListener[] = [
     {
         command: "/anekb",
         middleware: Listners.onRandomAnekB
+    },
+    {
+        command: "/ideas",
+        middleware: Listners.onIdeas
     }
 
 ]
