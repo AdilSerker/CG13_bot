@@ -118,19 +118,19 @@ class Listners {
     }
 
     static async matchYes(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 98) {
+        if (randomInteger(0, 100) > 90) {
             await ctx.reply('хуй НА!!');
         }
     }
 
     static async matchNo(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 98) {
+        if (randomInteger(0, 100) > 90) {
             await ctx.reply('Пидора ответ! 😎');
         }
     }
 
     static async matchWhat(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 98) {
+        if (randomInteger(0, 100) > 90) {
             await ctx.reply('хуй в');
             await ctx.reply('О');
             await ctx.reply('Ч');
