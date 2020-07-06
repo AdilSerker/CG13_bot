@@ -116,6 +116,27 @@ class Listners {
             await ctx.reply(AUE_REPLAY[randomInteger(0, AUE_REPLAY.length - 1)]);
         }
     }
+
+    static async matchYes(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 98) {
+            await ctx.reply('хуй НА!!');
+        }
+    }
+
+    static async matchNo(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 98) {
+            await ctx.reply('Пидора ответ! 😎');
+        }
+    }
+
+    static async matchWhat(ctx: TelegrafContext) {
+        if (randomInteger(0, 100) > 98) {
+            await ctx.reply('хуй в');
+            await ctx.reply('О');
+            await ctx.reply('Ч');
+            await ctx.reply('О');
+        }
+    }
 }
 
 export const textListeners: TextListener[] = [
@@ -162,5 +183,17 @@ export const textListeners: TextListener[] = [
     {
         match: ['ауе', 'Ауе', 'АУЕ'],
         middleware: Listners.matchAye
+    },
+    {
+        match: ['да', 'Да', 'ДА'],
+        middleware: Listners.matchYes
+    },
+    {
+        match: ['нет', 'Нет', 'НЕТ'],
+        middleware: Listners.matchNo
+    },
+    {
+        match: ['че', 'Че', 'ЧЕ', 'чо', 'Чо', 'ЧО',],
+        middleware: Listners.matchWhat
     }
 ];
