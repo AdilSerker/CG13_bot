@@ -153,7 +153,7 @@ export const textListeners: TextListener[] = [
         middleware: Listners.matchBake
     },
     {
-        match: [/тутор/i, /урок/i, /курс/i],
+        match: [/ тутор/i, /урок/i, /курс /i],
         middleware: Listners.matchTutor
     },
     {
@@ -195,5 +195,12 @@ export const textListeners: TextListener[] = [
     {
         match: ['че', 'Че', 'ЧЕ', 'чо', 'Чо', 'ЧО',],
         middleware: Listners.matchWhat
+    },
+    {
+        match: [/🏳️‍🌈/i],
+        middleware: async (ctx: TelegrafContext) => {
+            await ctx.reply('ЛООООООООООХ');
+            await ctx.reply('пидр');
+        }
     }
 ];
