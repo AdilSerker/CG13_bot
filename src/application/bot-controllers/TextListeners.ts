@@ -118,9 +118,25 @@ class Listners {
     }
 
     static async matchYes(ctx: TelegrafContext) {
-        if (randomInteger(0, 100) > 90) {
-            await ctx.reply('хуй НА!!');
+        const randint = randomInteger(0, 100);
+        const url = 'https://abomus.news/sites/default/files/styles/og_600x315/public/news/2019/my-little-pony-fendomy-trixie-minor-2105400.jpeg?itok=fAQHw904'
+        
+        if (randint > 85) {
+            await ctx.replyWithPhoto({
+                url: url,
+                filename: 'kirkorov'
+            }, {
+                caption: 'ПИЗДА!'
+            });
+            
+            return;
         }
+
+        if (randint > 80) {
+            await ctx.reply('хуй НА!!');
+            return;
+        } 
+
     }
 
     static async matchNo(ctx: TelegrafContext) {
