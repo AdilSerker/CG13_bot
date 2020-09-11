@@ -5,32 +5,21 @@ import { userRepository } from './UserRepository';
 import { chatRepository } from './ChatRepository';
 import { Message } from 'telegraf/typings/telegram-types';
 
-class MessageRepository {
+export class MessageRepository {
 
-    public async saveMessage(messageWithContext: Message, edit: boolean = false) {
-        const user = messageWithContext.from;
-        const chat = messageWithContext.chat;
-        await userRepository.save(user);
-        await chatRepository.save(chat);
-
-        const message = {
-            id: messageWithContext.message_id.toString(),
-            chat_id: chat.id.toString(),
-            user_id: user.id.toString(),
-            reply_to_message: messageWithContext.reply_to_message &&
-                messageWithContext.reply_to_message.message_id.toString(),
-            date: messageWithContext.date,
-            sticker: !!messageWithContext.sticker,
-            voice: !!messageWithContext.voice,
-            photo: !!messageWithContext.photo,
-            video: !!messageWithContext.video,
-            edit
+    public async saveMessageSource(messageWithContext: Message, edit: boolean = false) {
+        try {
+            const user = messageWithContext.from;
+            const chat = messageWithContext.chat;
+            await userRepository.save(user);
+            await chatRepository.save(chat);
+            
+        } catch (error) {
+            console.error(error);   
         }
 
-        await messageRepository.save(message);
-
-        console.log('MESSAGE');
-        console.log({ ...message, text: messageWithContext.text });
+        // console.log('MESSAGE');
+        console.log(JSON.stringify(messageWithContext, null, 3));
     }
 
     private async save(message: MessageModel): Promise<void> {

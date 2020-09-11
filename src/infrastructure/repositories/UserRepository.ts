@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import { UserModel } from '../models/UserModel';
 import { User } from 'telegraf/typings/telegram-types';
 
-class UserRepository {
+export class UserRepository {
     public async get(id: number): Promise<UserModel> {
         let user;
         if (id) {

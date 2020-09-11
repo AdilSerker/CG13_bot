@@ -1,0 +1,67 @@
+import { TextReaction, ReactionType } from '../../../use-cases/group-chat/TextReaction';
+
+import { TelegrafContext } from "telegraf/typings/context";
+import { TextListener } from "../../../types";
+
+export const chatListeners: TextListener[] = [
+    {
+        match: ['бан', 'Бан', ',fy'],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Ban).execute()); } 
+    },
+    {
+        match: [/ban/i, /забан/i, /баним/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Ban).execute()); } 
+    },
+    {
+        match: [/(как.*запечь)/i, /запек/i, /бейк/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Bake).execute()); } 
+    },
+    {
+        match: [/ тутор/i, /урок/i, /курс /i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Tutorial).execute()); } 
+    },
+    {
+        match: [/ахаха/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Lough).execute()); } 
+    },
+    {
+        match: [/в праг/i,/чехи/i,/Прага/i,],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Weed).execute()); } 
+    },
+    {
+        match: [/(как.*делать)/i, /(как.*сделать)/i, /(как.*замоделить)/i, /(как.*в майе)/i, /(как.*в зебре)/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Question).execute()); } 
+    },
+    {
+        match: [/blender/i, /блендер/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Blender).execute()); } 
+    },
+    {
+        match: [/( ауе)/i, /(ауе )/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.AUE).execute()); } 
+    },
+    {
+        match: ['ауе', 'Ауе', 'АУЕ'],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.AUE).execute()); } 
+    },
+    {
+        match: ['да', 'Да', 'ДА'],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Yes).execute()); } 
+    },
+    {
+        match: ['нет', 'Нет', 'НЕТ'],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.No).execute()); } 
+    },
+    {
+        match: ['че', 'Че', 'ЧЕ', 'чо', 'Чо', 'ЧО',],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.What).execute()); } 
+    },
+    {
+        match: [/🏳️‍🌈/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.LGBT).execute()); } 
+    },
+    {
+        match: [/^[А-Яа-я]+[.,\/#!$%\^&\*;:{}=\-_`~()]*$/i],
+        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Concrete).execute()); } 
+    }
+];

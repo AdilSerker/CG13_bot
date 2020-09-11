@@ -22,6 +22,6 @@ export class ChatModel {
     @Column("varchar")
     title?: string;
 
-    @CreateDateColumn({ name: 'all_members_are_administrators', type: 'boolean' })
+    @Column({ name: 'all_members_are_administrators', type: 'boolean' })
     all_members_are_administrators?: boolean;
 }

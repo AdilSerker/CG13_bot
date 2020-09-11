@@ -1,3 +1,3 @@
-export * from './TextListeners';
-export * from './CommandListeners';
+export * from './text-listeners';
+export * from './commands';
 export * from './OnListeners';
