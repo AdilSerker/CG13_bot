@@ -7,7 +7,7 @@ import { Message } from 'telegraf/typings/telegram-types';
 
 export class MessageRepository {
 
-    public async saveMessageSource(messageWithContext: Message, edit: boolean = false) {
+    public async saveMessageSource(messageWithContext: Message) {
         try {
             const user = messageWithContext.from;
             const chat = messageWithContext.chat;
@@ -17,9 +17,6 @@ export class MessageRepository {
         } catch (error) {
             console.error(error);   
         }
-
-        // console.log('MESSAGE');
-        console.log(JSON.stringify(messageWithContext, null, 3));
     }
 
     private async save(message: MessageModel): Promise<void> {

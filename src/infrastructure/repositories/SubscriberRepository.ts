@@ -6,6 +6,10 @@ export class SubscriberRepository {
         return getRepository(SubscriberModel).findOne({ where: { user_id } });
     }
 
+    public async getList(): Promise<SubscriberModel[]> {
+        return getRepository(SubscriberModel).find({ where: { dev_log: true } });
+    }
+
     public async save(user_id: string, dev_log: boolean): Promise<void> {
         let sub = await getRepository(SubscriberModel).findOne({ where: { user_id } });
         if (sub) {

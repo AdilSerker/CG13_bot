@@ -3,7 +3,11 @@ import { getRepository } from 'typeorm';
 import { ChatModel } from '../models/ChatModel';
 import { Chat } from 'telegraf/typings/telegram-types';
 
-class ChatRepository {
+export type ChatQueryParams = {
+    type: string;
+};
+
+export class ChatRepository {
     public async get(id: number): Promise<ChatModel> {
         let chat;
         if (id) {
@@ -13,6 +17,10 @@ class ChatRepository {
         }
 
         return chat;
+    }
+
+    public async getList({ type }: ChatQueryParams): Promise<ChatModel[]> {
+        return getRepository(ChatModel).find({ where: { type }});
     }
 
     public async save({ id, ...data }: Chat): Promise<void> {

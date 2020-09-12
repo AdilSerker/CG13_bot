@@ -1,25 +1,21 @@
-import { reply, bot } from './../../components/telegram-bot/TelegramBot';
-import { concreting } from './../../components/concrete/index';
 import { TelegrafContext } from "telegraf/typings/context";
 
 import { OnListener } from "../../types";
-import { messageRepository } from './../../infrastructure/repositories/MessageRepository';
+import { messageRepository } from '../../infrastructure/repositories/MessageRepository';
+
+import { CreatePost } from '../../use-cases/admin-chat/CreatePost';
+
 
 class Listners {
     
     static async onMessage(ctx: TelegrafContext) {
-
-        const messageWithContext = ctx.update.message;
-
-        await messageRepository.saveMessageSource(messageWithContext);
-
+        await messageRepository.saveMessageSource(ctx.update.message);
+        
+        await (new CreatePost(ctx)).execute();
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
-
-        const messageWithContext = ctx.update.edited_message;
-
-        await messageRepository.saveMessageSource(messageWithContext, true);
+        await messageRepository.saveMessageSource(ctx.update.edited_message);
     }
 }
 

@@ -5,7 +5,7 @@ import { reply, replyWithPhoto } from '../../components/telegram-bot/TelegramBot
 import { randomInteger } from '../../components/utils/randomize';
 
 import { AGGRESSIVE_REPLAY, ANSWERS_3DSOFT, WEED_REPLAY, TUTOR_REPLAY, BLENDER_REPLAY, AUE_REPLAY } from './answers';
-import { BaseChatUseCase } from './BaseChatUseCase';
+import { BaseGroupChatUseCase } from './BaseChatUseCase';
 
 export enum ReactionType {
     Ban = 'ban',
@@ -24,7 +24,7 @@ export enum ReactionType {
     Concrete = 'concrete'
 }
 
-export class TextReaction extends BaseChatUseCase {
+export class TextReaction extends BaseGroupChatUseCase {
     private reactionType: ReactionType;
 
     public constructor(ctx: TelegrafContext, type: ReactionType) {

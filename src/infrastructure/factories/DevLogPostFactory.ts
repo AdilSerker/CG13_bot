@@ -11,7 +11,8 @@ export class DevLogFactory {
 
         const tags = model.tags.split(',');
         const fileId = model.file_id;
+        const fileType = model.file_type;
 
-        return new DevLogPost({ id, title, text, tags, fileId });
+        return new DevLogPost({ id, title, text, tags, fileId, fileType });
     }
 }

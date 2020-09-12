@@ -28,14 +28,16 @@ export class DevLogRepository {
     }
 
     public async save(post: DevLogPost): Promise<DevLogPost> {
-        const { id, title, text, tags, fileId } = post;
+        const { id, title, text, tags, fileId, fileType } = post;
 
         const modelPost = await this.repository.save(plainToClass(DevLogModel, {
             id,
             title,
             text,
             tags: tags.join(','),
-            file_id: fileId
+            file_id: fileId,
+            file_type: fileType,
+            create_time: new Date()
         }));
 
         return DevLogFactory.createFromModel(modelPost);
