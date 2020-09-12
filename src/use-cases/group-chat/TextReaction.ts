@@ -4,7 +4,7 @@ import { TelegrafContext } from 'telegraf/typings/context';
 import { reply, replyWithPhoto } from '../../components/telegram-bot/TelegramBot';
 import { randomInteger } from '../../components/utils/randomize';
 
-import { AGGRESSIVE_REPLAY, ANSWERS_3DSOFT, WEED_REPLAY, TUTOR_REPLAY, BLENDER_REPLAY, AUE_REPLAY } from './answers';
+import { AGGRESSIVE_REPLAY, ANSWERS_3DSOFT, WEED_REPLAY, BLENDER_REPLAY } from './answers';
 import { BaseGroupChatUseCase } from './BaseChatUseCase';
 
 export enum ReactionType {
@@ -14,9 +14,7 @@ export enum ReactionType {
     Question = 'question',
     Bake = 'bake',
     Weed = 'weed',
-    Tutorial = 'tutorial',
     Blender = 'blender',
-    AUE = 'aue',
     Yes = 'yes',
     No = 'no',
     What = 'what',
@@ -36,9 +34,6 @@ export class TextReaction extends BaseGroupChatUseCase {
         switch (this.reactionType) {
             case ReactionType.Ban:
                 await this.matchBan();
-                break;
-            case ReactionType.AUE:
-                await this.matchAye();
                 break;
             case ReactionType.Bake:
                 await this.matchBake();
@@ -60,25 +55,16 @@ export class TextReaction extends BaseGroupChatUseCase {
                 break;
             case ReactionType.Secret:
                 await this.matchSecret();
-    
-                break;
-            case ReactionType.Tutorial:
-                await this.matchTutor();
-
                 break;
             case ReactionType.What:
                 await this.matchWhat();
-
                 break;
             case ReactionType.Yes:
                 await this.matchYes();
-                
                 break;
             case ReactionType.LGBT:
                 await this.matchLGBT();
-                
                 break;
-
             case ReactionType.Concrete:
                 await this.matchSingleWord();
                 break;
@@ -118,13 +104,13 @@ export class TextReaction extends BaseGroupChatUseCase {
     }
 
     private async matchQuestion() {
-        if (randomInteger(0, 100) > 50) {
+        if (randomInteger(0, 100) > 90) {
             await reply(this.ctx, ANSWERS_3DSOFT[randomInteger(0, ANSWERS_3DSOFT.length - 1)]);
         }
     }
 
     private async matchBake() {
-        if (randomInteger(0, 100) > 50) {
+        if (randomInteger(0, 100) > 90) {
             await reply(this.ctx, 'Анус себе запеки!');
         }
     }
@@ -135,21 +121,9 @@ export class TextReaction extends BaseGroupChatUseCase {
         }
     }
 
-    private async matchTutor() {
-        if (randomInteger(0, 100) > 70 || randomInteger(0, 100) > 50 && this.ctx.update.message.from.id === 341554801) {
-            await reply(this.ctx, TUTOR_REPLAY[randomInteger(0, TUTOR_REPLAY.length - 1)]);
-        }
-    }
-
     private async matchBlender() {
-        if (randomInteger(0, 100) > 70) {
+        if (randomInteger(0, 100) > 90) {
             await reply(this.ctx, BLENDER_REPLAY[randomInteger(0, BLENDER_REPLAY.length - 1)]);
-        }
-    }
-
-    private async matchAye() {
-        if (randomInteger(0, 100) > 70) {
-            await reply(this.ctx, AUE_REPLAY[randomInteger(0, AUE_REPLAY.length - 1)]);
         }
     }
 
@@ -157,7 +131,7 @@ export class TextReaction extends BaseGroupChatUseCase {
         const randint = randomInteger(0, 100);
         const url = 'https://abomus.news/sites/default/files/styles/og_600x315/public/news/2019/my-little-pony-fendomy-trixie-minor-2105400.jpeg?itok=fAQHw904'
         
-        if (randint > 85) {
+        if (randint > 80) {
             await replyWithPhoto(this.ctx, {
                 url: url,
                 filename: 'kirkorov'
@@ -176,7 +150,7 @@ export class TextReaction extends BaseGroupChatUseCase {
     }
 
     private async matchNo() {
-        if (randomInteger(0, 100) > 90) {
+        if (randomInteger(0, 100) > 80) {
             await reply(this.ctx, 'Пидора ответ! 😎');
         }
     }

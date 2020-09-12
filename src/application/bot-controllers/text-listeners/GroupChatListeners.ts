@@ -17,10 +17,6 @@ export const chatListeners: TextListener[] = [
         middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Bake).execute()); } 
     },
     {
-        match: [/ тутор/i, /урок/i, /курс /i],
-        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Tutorial).execute()); } 
-    },
-    {
         match: [/ахаха/i],
         middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Lough).execute()); } 
     },
@@ -35,14 +31,6 @@ export const chatListeners: TextListener[] = [
     {
         match: [/blender/i, /блендер/i],
         middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Blender).execute()); } 
-    },
-    {
-        match: [/( ауе)/i, /(ауе )/i],
-        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.AUE).execute()); } 
-    },
-    {
-        match: ['ауе', 'Ауе', 'АУЕ'],
-        middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.AUE).execute()); } 
     },
     {
         match: ['да', 'Да', 'ДА'],
