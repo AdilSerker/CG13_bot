@@ -29,7 +29,7 @@ export class DevLogSubscription extends BasePrivateChatUseCase {
         } else {
             const firstSubscribe = !subscriber;
             await this.subscriberRepository.save(this.user.id.toString(), true);
-            await reply(this.ctx, 'Вы подписались на девлог по разработе Ягура. Спасибо!\n');
+            await reply(this.ctx, 'Вы подписались на девлог по разработке Ягура. Спасибо!\n');
 
             if (firstSubscribe) {
                 const allPosts = await this.devLogRepository.get();
