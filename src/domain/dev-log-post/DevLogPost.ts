@@ -1,7 +1,8 @@
 export enum FileType {
     Photo = 'photo',
     Animation = 'animation',
-    Video = 'video'
+    Video = 'video',
+    Document = 'document',
 }
 
 export type CreateDevLogPostParams = {

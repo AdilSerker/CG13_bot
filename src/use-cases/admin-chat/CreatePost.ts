@@ -49,6 +49,9 @@ export class CreatePost extends BasePrivateChatUseCase {
         if (this.ctx.message.video) {
             return FileType.Video;
         }
+        if (this.ctx.message.document) {
+            return FileType.Document;
+        }
 
         return undefined;
     }
