@@ -1,3 +1,4 @@
+import { DevLogPost, FileType } from './../../domain/dev-log-post/DevLogPost';
 import { TelegrafContext } from 'telegraf/typings/context';
 import Telegraf from 'telegraf';
 
@@ -55,6 +56,32 @@ export const replyWithPhoto = async (ctx: TelegrafContext, photo: InputFile, ext
         await ctx.replyWithPhoto(photo, extra);
     } catch (error) {
         console.error(error)
+    }
+}
+
+export const sendPost = async (userId: string, post: DevLogPost): Promise<void> => {
+    const { telegram: tg } = bot;
+    const caption: string = post.getFormatedPost();
+    try {
+        switch (post.fileType) {
+            case FileType.Photo:
+                await tg.sendPhoto(userId, post.fileId, { caption });
+                break;
+            case FileType.Animation:
+                await tg.sendAnimation(userId, post.fileId, { caption });
+                break;
+            case FileType.Document:
+                await tg.sendDocument(userId, post.fileId, { caption });
+                break;
+            case FileType.Video:
+                await tg.sendVideo(userId, post.fileId, { caption });
+                break;
+            default:
+                await tg.sendMessage(userId, caption);
+                break;
+        }
+    } catch (error) {
+        console.error(error);
     }
 }
 

@@ -4,7 +4,7 @@ import { DevLogRepository } from '../infrastructure/repositories/DevLogRepositor
 
 import { CreateDevLogPostParams, DevLogPost, FileType } from '../domain/dev-log-post/DevLogPost';
 import { DevLogFactory } from '../infrastructure/factories/DevLogPostFactory';
-import { bot } from '../components/telegram-bot/TelegramBot';
+import { sendPost } from './../components/telegram-bot/TelegramBot';
 
 export class CreateDevLogPost {
     private devLogRepository: DevLogRepository;
@@ -24,32 +24,7 @@ export class CreateDevLogPost {
         const subscribers = await (await this.subscriberRepository.getList())
             .filter(item => item.user_id !== '93517612');
 
-        await Promise.all(subscribers.map(sub => this.sendPost(sub.user_id, post)));
+        await Promise.all(subscribers.map(sub => sendPost(sub.user_id, post)));
     }
 
-    protected async sendPost(userId: string, post: DevLogPost): Promise<void> {
-        const { telegram: tg } = bot;
-        const caption: string = post.getFormatedPost();
-        try {
-            switch (post.fileType) {
-                case FileType.Photo:
-                    await tg.sendPhoto(userId, post.fileId, { caption });
-                    break;
-                case FileType.Animation:
-                    await tg.sendAnimation(userId, post.fileId, { caption });
-                    break;
-                case FileType.Document:
-                    await tg.sendAnimation(userId, post.fileId, { caption });
-                    break;
-                case FileType.Video:
-                    await tg.sendVideo(userId, post.fileId, { caption });
-                    break;
-                default:
-                    await tg.sendMessage(userId, caption);
-                    break;
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 }
