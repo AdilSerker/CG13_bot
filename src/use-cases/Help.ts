@@ -36,7 +36,7 @@ export class HelpCase extends BaseUseCase {
         const sub = await this.subscriberRepository.getByUserId(this.user.id.toString());
         await reply(
             this.ctx,
-            `/devlog - ${sub.dev_log ? 'Отписаться от devlog' : 'Подписаться на devlog'}\n\n` +
+            `/devlog - ${sub && sub.dev_log ? 'Отписаться от devlog' : 'Подписаться на devlog'}\n\n` +
             '/lastbuild - Последний актуальный билд\n\n' +
             '/getbuild - Получать последний актуальный билд\n\n'
         );
