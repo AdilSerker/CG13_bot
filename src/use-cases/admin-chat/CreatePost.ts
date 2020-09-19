@@ -64,13 +64,23 @@ export class CreatePost extends BasePrivateChatUseCase {
 
     protected getFileData(): { fileId: string, fileType: FileType } {
         const fileType = this.getFileType();
-        const fileId = fileType === FileType.Photo ? 
-            this.ctx.message.photo[1].file_id :
-            fileType === FileType.Animation ?
-                this.ctx.message.animation.file_id :
-                fileType === FileType.Video ?
-                    this.ctx.message.video.file_id :
-                    undefined;
+        let fileId;
+        switch (fileType) {
+            case FileType.Photo:
+                fileId = this.ctx.message.photo[1].file_id;
+                break;
+            case FileType.Animation:
+                fileId = this.ctx.message.animation.file_id;
+                break;
+            case FileType.Video:
+                fileId = this.ctx.message.video.file_id;
+                break;
+            case FileType.Document:
+                fileId = this.ctx.message.document.file_id;
+                break;
+            default:
+                break;
+        }
         return { fileId, fileType };
     }
 

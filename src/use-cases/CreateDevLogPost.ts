@@ -21,8 +21,7 @@ export class CreateDevLogPost {
     public async execute(): Promise<void> {
         let post = await this.devLogRepository.save(DevLogFactory.create(this.createPostParams));
         
-        const subscribers = await (await this.subscriberRepository.getList())
-            .filter(item => item.user_id !== '93517612');
+        const subscribers = await (await this.subscriberRepository.getList());
 
         await Promise.all(subscribers.map(sub => sendPost(sub.user_id, post)));
     }
