@@ -53,6 +53,9 @@ export class DevLogSubscription extends BasePrivateChatUseCase {
                 case FileType.Animation:
                     await tg.sendAnimation(userId, post.fileId, { caption });
                     break;
+                case FileType.Document:
+                    await tg.sendAnimation(userId, post.fileId, { caption });
+                    break;
                 case FileType.Video:
                     await tg.sendVideo(userId, post.fileId, { caption });
                     break;
