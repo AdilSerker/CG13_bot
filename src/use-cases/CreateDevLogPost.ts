@@ -33,16 +33,16 @@ export class CreateDevLogPost {
         try {
             switch (post.fileType) {
                 case FileType.Photo:
-                    tg.sendPhoto(userId, post.fileId, { caption });
+                    await tg.sendPhoto(userId, post.fileId, { caption });
                     break;
                 case FileType.Animation:
-                    tg.sendAnimation(userId, post.fileId, { caption });
+                    await tg.sendAnimation(userId, post.fileId, { caption });
                     break;
                 case FileType.Video:
-                    tg.sendVideo(userId, post.fileId, { caption });
+                    await tg.sendVideo(userId, post.fileId, { caption });
                     break;
                 default:
-                    tg.sendMessage(userId, caption);
+                    await tg.sendMessage(userId, caption);
                     break;
             }
         } catch (error) {

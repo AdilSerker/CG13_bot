@@ -15,7 +15,7 @@ export class DevLogRepository {
         return getRepository(DevLogModel);
     }
 
-    public async get(query: DevLogQueryParams): Promise<DevLogPost[]> {
+    public async get(query: DevLogQueryParams = {}): Promise<DevLogPost[]> {
         const allposts = await this.repository.find();
 
         const filteredPosts = query.id || query.tags ? allposts.filter(post => {
