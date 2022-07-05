@@ -15,7 +15,13 @@ export class HelpCase extends BaseUseCase {
     public async execute(): Promise<void> {
 
         if (this.checkPermission()) {
-            await this.runLogic();
+            if (this.ctx.from.username === 'virtualparticle') {
+                await this.runAdminLogic();
+            } else {
+                await this.runLogic();
+            }
+
+            
         } else {
             await reply(
                 this.ctx,
@@ -40,6 +46,10 @@ export class HelpCase extends BaseUseCase {
             '/lastbuild - Последний актуальный билд\n\n' +
             '/getbuild - Получать последний актуальный билд\n\n'
         );
+    }
+
+    protected async runAdminLogic() {
+        await reply(this.ctx, `/shitpost - насрать в чат`);
     }
     
 }

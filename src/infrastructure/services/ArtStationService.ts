@@ -25,7 +25,7 @@ class ArtStationService {
 
     async getRandomWork(): Promise<ArtStationWork> {
         const response = await this.httpClient.get<ArtStationResponse>(
-            `/projects.json?page=${randomInteger(0, 10)}&sorting=trending&randomize=true`
+            `/projects.json?page=${randomInteger(0, 2)}&sorting=trending&randomize=true`
             );
 
         return response.data.data[randomInteger(0, response.data.data.length - 1)];

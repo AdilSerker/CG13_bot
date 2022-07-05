@@ -19,6 +19,10 @@ export class ChatRepository {
         return chat;
     }
 
+    public async getByTitle(title: string): Promise<ChatModel> {
+        return getRepository(ChatModel).findOne({ title });
+    }
+
     public async getList({ type }: ChatQueryParams): Promise<ChatModel[]> {
         return getRepository(ChatModel).find({ where: { type }});
     }

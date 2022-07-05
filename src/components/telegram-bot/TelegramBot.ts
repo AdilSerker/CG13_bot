@@ -1,10 +1,11 @@
 import { DevLogPost, FileType } from './../../domain/dev-log-post/DevLogPost';
 import { TelegrafContext } from 'telegraf/typings/context';
+
 import Telegraf from 'telegraf';
 
 import { TelegramBotConfig, ConfigType, Config } from './../config';
 import { CommandListener, OnListener, TextListener } from './../../types';
-import { InputFile, ExtraPhoto } from 'telegraf/typings/telegram-types';
+import { InputFile, ExtraPhoto, ExtraReplyMessage } from 'telegraf/typings/telegram-types';
 
 const botConfig = <TelegramBotConfig>Config.getInstance().getConfig(ConfigType.Telegram);
 
@@ -43,9 +44,9 @@ function initTextListeners(bot: Telegraf<TelegrafContext>, textListeners: TextLi
     }
 }
 
-export const reply = async (ctx: TelegrafContext, text: string): Promise<void> => {
+export const reply = async (ctx: TelegrafContext, text: string, extra?: ExtraReplyMessage): Promise<void> => {
     try {
-        await ctx.reply(text);
+        await ctx.reply(text, extra);
     } catch (error) {
         console.error(error)
     }
