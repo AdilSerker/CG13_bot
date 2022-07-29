@@ -8,6 +8,9 @@ export class AnekBModel {
     @Column({ name: 'anek_id', type: 'integer' })
     anek_id: number;
 
+    @Column({ name: 'chat_id', type: 'varchar' })
+    chat_id: string;
+
     @Column({ name: 'is_showed', type: 'boolean' })
     is_showed: boolean;
 }

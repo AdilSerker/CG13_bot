@@ -9,8 +9,8 @@ class AnekBService {
         this.http = new HttpClient({ url: 'https://baneks.ru'});
     }
 
-    public async getRandomAnek(): Promise<string> {
-        const aneks = await anekBRepository.getList();
+    public async getRandomAnek(chatId: string): Promise<string> {
+        const aneks = await anekBRepository.getList(chatId);
 
         const showedAneks = aneks.map(item => item.anek_id);
 
@@ -23,13 +23,15 @@ class AnekBService {
 
         let responseText = 'А все, а пиздец. Запас анеков исчерпан! нужен новый ресурс (яма с говном)';
 
-        // if (newAnekIds.length) {
+        if (newAnekIds.length) {
             const randomAnekId = randomInteger(0, 1142);
 
             const response = await this.http.get(`https://baneks.ru/${randomAnekId}`);
             responseText = (response.data as string).split('<p>')[1].split('</p>')[0].replace(/<br \/>/g, '');
-            await anekBRepository.save(randomAnekId);
-        // }
+            await anekBRepository.save(randomAnekId, chatId);
+        } else {
+            await anekBRepository.deleteAll(chatId);
+        }
         return responseText;
     }
 }

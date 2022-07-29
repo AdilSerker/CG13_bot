@@ -45,7 +45,7 @@ class Listners {
 
     static async onRandomAnekB(ctx: TelegrafContext) {
         try {
-            const anekText = await anekService.getRandomAnek();
+            const anekText = await anekService.getRandomAnek(`${ctx.chat.id}`);
             await reply(ctx, anekText);
         } catch (error) {
             
