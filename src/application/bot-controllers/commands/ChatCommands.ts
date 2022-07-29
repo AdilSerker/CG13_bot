@@ -1,3 +1,4 @@
+import { bashOrgService } from './../../../infrastructure/services/BashOrgService';
 import { anekService } from '../../../infrastructure/services/AnekBService';
 import { TelegrafContext } from "telegraf/typings/context";
 import { reply, replyWithPhoto } from './../../../components/telegram-bot/TelegramBot';
@@ -51,6 +52,15 @@ class Listners {
         }
     }
 
+    static async onRandomBashOrg(ctx: TelegrafContext) {
+        try {
+            const text = await bashOrgService.getRandomBashOrg();
+            await reply(ctx, text);
+        } catch (error) {
+            
+        }
+    }
+
     static async onIdeas(ctx: TelegrafContext) {
         await reply(ctx, 'https://docs.google.com/spreadsheets/d/13NG5aS4Tdcrqqmbm4z-cK8O-P7AlNDNHfG6Y7F0wm6Q/edit?usp=sharing');
     }
@@ -72,6 +82,10 @@ export const chatCommands: CommandListener[] = [
     {
         command: "/ab",
         middleware: Listners.onRandomAnekB
+    },
+    {
+        command: "/bo",
+        middleware: Listners.onRandomBashOrg
     },
     {
         command: "/ideas",

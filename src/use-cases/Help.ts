@@ -28,6 +28,7 @@ export class HelpCase extends BaseUseCase {
                 '/rn - Случайное число от 0 - 9\n\n' +
                 '/rs - RandStation - Случайная работа из трендов арт-станции\n\n' +
                 '/ab - Анекдот уровня /Б\n\n' +
+                '/bo - Случайный Баш Орг\n\n' +
                 '/yn - Да или Нет?\n\n'
             );
         }

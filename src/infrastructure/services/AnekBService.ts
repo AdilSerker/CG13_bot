@@ -23,13 +23,13 @@ class AnekBService {
 
         let responseText = 'А все, а пиздец. Запас анеков исчерпан! нужен новый ресурс (яма с говном)';
 
-        if (newAnekIds.length) {
-            const randomAnekId = newAnekIds[randomInteger(0, newAnekIds.length - 1)];
+        // if (newAnekIds.length) {
+            const randomAnekId = randomInteger(0, 1142);
 
             const response = await this.http.get(`https://baneks.ru/${randomAnekId}`);
             responseText = (response.data as string).split('<p>')[1].split('</p>')[0].replace(/<br \/>/g, '');
             await anekBRepository.save(randomAnekId);
-        }
+        // }
         return responseText;
     }
 }
