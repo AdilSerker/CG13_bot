@@ -12,7 +12,8 @@ import { middlewares } from "./components/middlewares";
 import { createTelegramBot } from './components/telegram-bot/TelegramBot';
 
 import { commands, onListeners, textListeners } from './application/bot-controllers';
-
+import {openai} from "./components/openai";
+openai
 const serverConfig = <ServerConfig>Config.getInstance().getConfig(ConfigType.Server);
 const dbConfig = <PostgresConnectionOptions>Config.getInstance().getConfig(ConfigType.Db);
 
@@ -26,8 +27,6 @@ const bot = createTelegramBot({
 	onListeners,
 	textListeners
 });
-
-import './components/sheduler/sheduler';
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());

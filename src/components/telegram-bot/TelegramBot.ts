@@ -52,6 +52,14 @@ export const reply = async (ctx: TelegrafContext, text: string, extra?: ExtraRep
     }
 }
 
+export const replyWithMarkDown = async (ctx: TelegrafContext, text: string, extra?: ExtraReplyMessage): Promise<void> => {
+    try {
+        await ctx.replyWithMarkdown(text, extra);
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export const replyWithPhoto = async (ctx: TelegrafContext, photo: InputFile, extra?: ExtraPhoto): Promise<void> => {
     try {
         await ctx.replyWithPhoto(photo, extra);

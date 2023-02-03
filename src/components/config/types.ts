@@ -1,7 +1,8 @@
 export enum ConfigType {
 	Server = "server",
 	Db = 'db',
-	Telegram = 'telegram'
+	Telegram = 'telegram',
+	OpenAI = 'openai'
 }
 
 export interface ConfigDictionary {
@@ -29,5 +30,10 @@ export interface ServerConfig extends BaseConfig {
 
 export interface TelegramBotConfig extends BaseConfig {
 	token: string;
+}
+
+export interface OpenAiConfig extends BaseConfig {
+	organization: string;
+	apiKey: string;
 }
 

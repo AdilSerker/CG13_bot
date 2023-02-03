@@ -5,22 +5,25 @@ import { OnListener } from "../../types";
 import { messageRepository } from '../../infrastructure/repositories/MessageRepository';
 
 import { CreatePost } from '../../use-cases/admin-chat/CreatePost';
+import {ChatGPT} from "./commands/ChatGPT";
 
 
-class Listners {
-    
+class Listeners {
+
     static async onMessage(ctx: TelegrafContext) {
         //await messageRepository.saveMessageSource(ctx.update.message);
-        
+
         await (new CreatePost(ctx)).execute();
 
         await (new SendAnonimMessage(ctx).exec());
 
-        // console.log({ 
-        //     chat: ctx.chat.title,
-        //     from: { username: ctx.from.username, name: ctx.from.first_name }, 
-        //     message: ctx.message.text 
-        // });
+        await (new ChatGPT(ctx).exec());
+
+        /*console.log({
+            chat: ctx.chat.title,
+            from: { username: ctx.from.username, name: ctx.from.first_name },
+            message: ctx.message.text
+        });*/
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
@@ -31,14 +34,14 @@ class Listners {
 export const onListeners: OnListener[] = [
     {
         updateType: ["sticker", "voice", "video", "photo", "text"],
-        middleware: Listners.onMessage
+        middleware: Listeners.onMessage
     },
     {
         updateType: "edited_message",
-        middleware: Listners.onEditMessage
+        middleware: Listeners.onEditMessage
     },
     {
         updateType: "message",
-        middleware: Listners.onMessage
+        middleware: Listeners.onMessage
     }
 ]
