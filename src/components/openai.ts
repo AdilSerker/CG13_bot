@@ -67,7 +67,7 @@ export class OpenAI {
         const baseCompletion = await this.openai.createCompletion({
             model: 'text-davinci-003',
             prompt: `${prompt}.\n`,
-            temperature: 0.8,
+            temperature: 0.65,
             max_tokens: 1000,
         });
 
