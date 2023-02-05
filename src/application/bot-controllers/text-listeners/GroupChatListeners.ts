@@ -2,8 +2,13 @@ import { TextReaction, ReactionType } from '../../../use-cases/group-chat/TextRe
 
 import { TelegrafContext } from "telegraf/typings/context";
 import { TextListener } from "../../../types";
+import {ChatGPT} from "../commands/ChatGPT";
 
 export const chatListeners: TextListener[] = [
+    {
+        match: [/^gpt/i, /^пзе/i],
+        middleware: async (ctx: TelegrafContext) => { await (new ChatGPT(ctx).exec()); }
+    },
     {
         match: ['бан', 'Бан', ',fy'],
         middleware: async (ctx: TelegrafContext) => { await (new TextReaction(ctx, ReactionType.Ban).execute()); } 

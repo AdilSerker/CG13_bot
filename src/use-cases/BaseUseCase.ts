@@ -25,7 +25,7 @@ export abstract class BaseUseCase {
     public async execute(): Promise<void> {
         try {
             if (this.checkPermission()) {
-                await this.messageRepository.saveMessageSource(this.message);
+                // await this.messageRepository.saveMessageSource(this.message);
                 await this.runLogic();
             }
         } catch (error) {

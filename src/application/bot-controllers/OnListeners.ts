@@ -1,10 +1,9 @@
-import { SendAnonimMessage } from './commands/SendAnonimMessage';
-import { TelegrafContext } from "telegraf/typings/context";
+import {SendAnonimMessage} from './commands/SendAnonimMessage';
+import {TelegrafContext} from "telegraf/typings/context";
 
-import { OnListener } from "../../types";
-import { messageRepository } from '../../infrastructure/repositories/MessageRepository';
+import {OnListener} from "../../types";
 
-import { CreatePost } from '../../use-cases/admin-chat/CreatePost';
+import {CreatePost} from '../../use-cases/admin-chat/CreatePost';
 import {ChatGPT} from "./commands/ChatGPT";
 
 
@@ -17,13 +16,19 @@ class Listeners {
 
         await (new SendAnonimMessage(ctx).exec());
 
-        await (new ChatGPT(ctx).exec());
+        // console.log({
+        //     chat: ctx.chat.title,
+        //     from: {username: ctx.from.username, name: ctx.from.first_name},
+        //     message: ctx.message.text
+        // });
+        try {
+            if (ctx.update.message.reply_to_message.from.username === 'cg_13_bot') {
+                await (new ChatGPT(ctx).exec(true))
+            }
+        } catch (e) {
 
-        /*console.log({
-            chat: ctx.chat.title,
-            from: { username: ctx.from.username, name: ctx.from.first_name },
-            message: ctx.message.text
-        });*/
+        }
+
     }
 
     static async onEditMessage(ctx: TelegrafContext) {
