@@ -1,4 +1,4 @@
-import {SendAnonimMessage} from './commands/SendAnonimMessage';
+import {StageProcessing} from './commands/StageProcessing';
 import {TelegrafContext} from "telegraf/typings/context";
 
 import {OnListener} from "../../types";
@@ -10,24 +10,25 @@ import {ChatGPT} from "./commands/ChatGPT";
 class Listeners {
 
     static async onMessage(ctx: TelegrafContext) {
-        //await messageRepository.saveMessageSource(ctx.update.message);
-
         await (new CreatePost(ctx)).execute();
+        await (new StageProcessing(ctx).exec());
 
-        await (new SendAnonimMessage(ctx).exec());
-
-        // console.log({
-        //     chat: ctx.chat.title,
-        //     from: {username: ctx.from.username, name: ctx.from.first_name},
-        //     message: ctx.message.text
-        // });
         try {
-            if (ctx.update.message.reply_to_message.from.username === 'cg_13_bot') {
+            if (ctx.update.message.reply_to_message &&
+                ctx.update.message.reply_to_message.from.username === 'cg_13_bot') {
+
                 await (new ChatGPT(ctx).exec(true))
             }
         } catch (e) {
-
+            console.error(e);
         }
+
+        /*console.log({
+            chat: ctx.chat,
+            from: {username: ctx.from.username, name: ctx.from.first_name},
+            message: ctx.message.text,
+            reply_to_message: ctx.update.message && ctx.update.message.reply_to_message
+        });*/
 
     }
 

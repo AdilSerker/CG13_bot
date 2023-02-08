@@ -1,8 +1,14 @@
 import {TelegrafContext} from "telegraf/typings/context";
 import {openai} from "../../../components/openai";
-import {Queue} from "../../../components/utils/Queue";
+import {chatRepository} from "../../../infrastructure/repositories/ChatRepository";
+import {messageRepository} from "../../../infrastructure/repositories/MessageRepository";
 
-const context = new Map<number, Queue<string>>();
+const CONTEXT_DEEP = 3;
+
+interface Conversation {
+    Q: string,
+    A: string
+}
 
 export class ChatGPT {
     private readonly ctx: TelegrafContext;
@@ -13,39 +19,45 @@ export class ChatGPT {
 
     public async exec(isReplay: boolean = false) {
         if (!this.ctx.message.text) return;
+        const text = isReplay ? this.ctx.message.text : this.ctx.message.text.slice(4);
+        await messageRepository.saveMessageSource(this.ctx.update.message, false, text);
 
-        const prompt = isReplay ? this.ctx.message.text : this.ctx.message.text.slice(4);
-        if (prompt.length > 1) {
-            openai.addCompletion({text: this.context(this.ctx, prompt), ctx: this.ctx});
-
-            if (!context.has(this.ctx.chat.id)) {
-                context.set(this.ctx.chat.id, new Queue<string>());
-            }
-            context.get(this.ctx.chat.id).enqueue(prompt);
-            return;
-        }
+        openai.addCompletion({text: await this.context(text, isReplay), ctx: this.ctx});
 
     }
 
-    private context(ctx: TelegrafContext, prompt: string): string {
+    private async context(prompt: string, isReplay: boolean = false): Promise<string> {
         let promptContext = '';
 
-        if (false && context.has(ctx.chat.id)) {
-            const promptsQueue = context.get(ctx.chat.id);
-            if (promptsQueue.length) {
-                if (promptsQueue.length > 10) promptsQueue.dequeue();
-                promptContext = this.buildContext(promptsQueue.toArray());
-            }
+        if (isReplay) {
+            let conversations: Conversation[] = [];
+            let replyMessageId = `${this.ctx.message.reply_to_message.message_id}`;
+            await this.loadConversation(replyMessageId, conversations, CONTEXT_DEEP);
+            // console.log(conversations);
+            promptContext = this.buildContext(conversations.reverse());
         }
 
-        promptContext = `Тебя зовут CGPT13 - ты телеграм бот с подключенной моделью GPT-3.
-Выполняешь функцию местного задиры, шута, шутника, душа компании, душа чата. 
-Все ответы дожны быть комичные.
-Q: ${prompt}\nA:`;
-        return promptContext;
+        const chat = await chatRepository.get(this.ctx.chat.id);
+        const prePrompt = chat.prePrompt || '';
+        return `${prePrompt}\n${promptContext}\nQ: ${prompt}\nA:`;
     }
 
-    private buildContext(prompts: string[]): string {
-        return `context: ${prompts.join(' ')}\n`;
+    private async loadConversation(replyMessageId: string, conversations: Conversation[], deep: number) {
+        let conversation: Conversation = {Q: '', A: ''};
+        const answer = await messageRepository.getById(replyMessageId);
+        conversation.A = answer && answer.text;
+        const question = answer && await messageRepository.getById(answer.reply_to_message);
+        conversation.Q = question && question.text;
+        conversations.push(conversation);
+        if (deep && question && question.reply_to_message)
+            await this.loadConversation(question.reply_to_message, conversations, deep - 1);
+    }
+
+    private buildContext(prompts: { Q: string, A: string }[]): string {
+        return prompts.reduce((acc, curr) => {
+            if (curr.Q) acc += `\nQ: ${curr.Q}`;
+            if (curr.A) acc += `\nA: ${curr.A}`;
+            return acc;
+        }, '');
     }
 }

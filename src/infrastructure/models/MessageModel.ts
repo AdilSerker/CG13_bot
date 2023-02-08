@@ -1,23 +1,24 @@
-
-import { Column, Entity, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from "typeorm";
-import { Chat } from "telegraf/typings/telegram-types";
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity('message')
 export class MessageModel {
     @PrimaryColumn('varchar')
     id: string;
 
-    @Column({ name: 'user_id', type: 'varchar' })
+    @Column({name: 'user_id', type: 'varchar'})
     user_id: string;
 
-    @Column({ name: 'chat_id', type: 'varchar' })
+    @Column({name: 'chat_id', type: 'varchar'})
     chat_id: string;
 
-    @Column({ name: 'reply_to_message', type: 'varchar' })
+    @Column({name: 'reply_to_message', type: 'varchar'})
     reply_to_message: string;
 
     @Column('int')
     date?: number;
+
+    @Column('varchar')
+    text: string;
 
     @Column('bool')
     sticker: boolean;

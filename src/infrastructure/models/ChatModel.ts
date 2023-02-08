@@ -1,6 +1,4 @@
-
-import { Column, Entity, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from "typeorm";
-import { Chat } from "telegraf/typings/telegram-types";
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity('chat')
 export class ChatModel {
@@ -10,10 +8,10 @@ export class ChatModel {
     @Column("varchar")
     type: string;
 
-    @Column({ name: 'first_name', type: 'varchar' })
+    @Column({name: 'first_name', type: 'varchar'})
     first_name?: string;
 
-    @Column({ name: 'last_name', type: 'varchar' })
+    @Column({name: 'last_name', type: 'varchar'})
     last_name?: string;
 
     @Column("varchar")
@@ -22,6 +20,9 @@ export class ChatModel {
     @Column("varchar")
     title?: string;
 
-    @Column({ name: 'all_members_are_administrators', type: 'boolean' })
+    @Column("varchar")
+    prePrompt?: string;
+
+    @Column({name: 'all_members_are_administrators', type: 'boolean'})
     all_members_are_administrators?: boolean;
 }

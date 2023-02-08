@@ -1,7 +1,7 @@
 import { TelegrafContext } from 'telegraf/typings/context';
 
-import { SubscriberRepository } from './../infrastructure/repositories/SubscriberRepository';
-import { reply } from './../components/telegram-bot/TelegramBot';
+import { SubscriberRepository } from '../infrastructure/repositories/SubscriberRepository';
+import { reply } from '../components/telegram-bot/TelegramBot';
 import { BaseUseCase } from './BaseUseCase';
 
 export class HelpCase extends BaseUseCase {
@@ -50,7 +50,10 @@ export class HelpCase extends BaseUseCase {
     }
 
     protected async runAdminLogic() {
-        await reply(this.ctx, `/shitpost - насрать в чат`);
+        await reply(this.ctx,
+            `/shitpost - насрать в чат\n` +
+            `/setpreprompt - Настроить препромпт\n`
+        );
     }
     
 }
