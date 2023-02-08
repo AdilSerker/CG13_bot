@@ -1,9 +1,9 @@
 import {TelegrafContext} from "telegraf/typings/context";
-import {openai} from "../../../components/openai";
+import {openai, Prompt} from "../../../components/openai";
 import {chatRepository} from "../../../infrastructure/repositories/ChatRepository";
 import {messageRepository} from "../../../infrastructure/repositories/MessageRepository";
 
-const CONTEXT_DEEP = 3;
+const CONTEXT_DEEP = 1;
 
 interface Conversation {
     Q: string,
@@ -20,9 +20,19 @@ export class ChatGPT {
     public async exec(isReplay: boolean = false) {
         if (!this.ctx.message.text) return;
         const text = isReplay ? this.ctx.message.text : this.ctx.message.text.slice(4);
-        await messageRepository.saveMessageSource(this.ctx.update.message, false, text);
+        let temperature: number = 0.5;
+        let prompt;
+        if (text.match(/\$\$[+-]?([0-9]*[.])?[0-9]+$/i)) {
+            const textDivided = text.split('$$');
+            prompt = textDivided[0];
+            temperature = Number(textDivided[1]);
+        } else {
+            prompt = text;
+        }
 
-        openai.addCompletion({text: await this.context(text, isReplay), ctx: this.ctx});
+        await messageRepository.saveMessageSource(this.ctx.update.message, false, prompt);
+
+        openai.addCompletion(new Prompt(this.ctx, await this.context(prompt, isReplay), temperature));
 
     }
 
@@ -34,7 +44,7 @@ export class ChatGPT {
             let replyMessageId = `${this.ctx.message.reply_to_message.message_id}`;
             await this.loadConversation(replyMessageId, conversations, CONTEXT_DEEP);
             // console.log(conversations);
-            promptContext = this.buildContext(conversations.reverse());
+            promptContext = ChatGPT.buildContext(conversations.reverse());
         }
 
         const chat = await chatRepository.get(this.ctx.chat.id);
@@ -53,7 +63,7 @@ export class ChatGPT {
             await this.loadConversation(question.reply_to_message, conversations, deep - 1);
     }
 
-    private buildContext(prompts: { Q: string, A: string }[]): string {
+    private static buildContext(prompts: { Q: string, A: string }[]): string {
         return prompts.reduce((acc, curr) => {
             if (curr.Q) acc += `\nQ: ${curr.Q}`;
             if (curr.A) acc += `\nA: ${curr.A}`;

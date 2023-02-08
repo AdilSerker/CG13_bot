@@ -25,6 +25,7 @@ export class StageProcessing {
 
     public async exec() {
         const user = await userRepository.get(this.ctx.from.id);
+        if (!user) return;
         let chat: ChatModel;
         switch (user.stage) {
             case Stage.Default:

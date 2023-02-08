@@ -5,17 +5,19 @@ import {OnListener} from "../../types";
 
 import {CreatePost} from '../../use-cases/admin-chat/CreatePost';
 import {ChatGPT} from "./commands/ChatGPT";
+import {bot} from "../../components/telegram-bot/TelegramBot";
 
 
 class Listeners {
 
     static async onMessage(ctx: TelegrafContext) {
+        const userBot = await bot.telegram.getMe();
+
         await (new CreatePost(ctx)).execute();
         await (new StageProcessing(ctx).exec());
 
         try {
-            if (ctx.update.message.reply_to_message &&
-                ctx.update.message.reply_to_message.from.username === 'cg_13_bot') {
+            if (ctx.update.message.reply_to_message.from.username === userBot.username) {
 
                 await (new ChatGPT(ctx).exec(true))
             }

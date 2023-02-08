@@ -7,9 +7,17 @@ import {messageRepository} from "../infrastructure/repositories/MessageRepositor
 
 const COOL_DOWN = 2000;
 
-export type Prompt = {
-    text: string;
-    ctx: TelegrafContext;
+
+export class Prompt {
+    public readonly text: string;
+    public readonly temperature: number;
+    public readonly ctx: TelegrafContext;
+
+    constructor(ctx: TelegrafContext, text: string, temperature: number = 0.5) {
+        this.ctx = ctx;
+        this.text = text;
+        this.temperature = temperature;
+    }
 }
 
 export class OpenAI {
@@ -32,22 +40,21 @@ export class OpenAI {
         this.promptQueue.enqueue(prompt);
     }
 
-    async createCompletion(prompt: string): Promise<string> {
-        console.log("GPT", prompt);
-        let response = '';
-        try {
-            const baseCompletion = await this.openai.createCompletion({
-                model: 'text-davinci-003',
-                prompt: `${prompt}.\n`,
-                temperature: 1.,
-                max_tokens: 1000,
-            });
-            const completion: CreateCompletionResponse = baseCompletion.data;
-            response = completion.choices.pop().text;
-        } catch (err) {
-            console.error(err);
-        }
-        // await new Promise(res => setTimeout(res, 6000));
+    async createCompletion(prompt: string, temperature: number = 0.5): Promise<string> {
+        console.log("GPT", prompt, temperature);
+        let response;
+
+        const baseCompletion = await this.openai.createCompletion({
+            model: 'text-davinci-003',
+            prompt: `${prompt}`,
+            temperature,
+            max_tokens: 1000,
+        });
+        const completion: CreateCompletionResponse = baseCompletion.data;
+        response = completion.choices.pop().text;
+
+        // await new Promise(res => setTimeout(res, 6000)); response = 'Ведутся техническое работы' + Date.now()
+
         return response;
     }
 
@@ -60,12 +67,11 @@ export class OpenAI {
             this.lockQuery = true;
             this.isTyping = true;
             await this.actionTyping();
-            const basePromptOutput = await this.createCompletion(prompt.text);
+            const basePromptOutput = await this.createCompletion(prompt.text, prompt.temperature);
 
             if (!basePromptOutput) {
-                await reply(prompt.ctx, "please try again, AI couldn't send the data", {reply_to_message_id: prompt.ctx.message.message_id});
-                this.promptQueue.dequeue();
-                return;
+                throw new Error("Please try again, AI couldn't send the data");
+
             }
             const message = await replyWithMarkDown(prompt.ctx, basePromptOutput, {reply_to_message_id: prompt.ctx.message.message_id});
             await messageRepository.saveMessageSource(message);

@@ -28,6 +28,9 @@ export class UserModel {
     @CreateDateColumn({name: 'is_bot', type: 'boolean'})
     is_bot: boolean;
 
+    @CreateDateColumn({ name: 'is_premium', type: 'boolean' })
+    is_premium: boolean;
+
     @UpdateDateColumn({name: 'language_code', type: 'varchar'})
     language_code: string;
 }
