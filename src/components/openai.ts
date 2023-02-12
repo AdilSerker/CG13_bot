@@ -74,7 +74,13 @@ export class OpenAI {
 
             }
             const message = await replyWithMarkDown(prompt.ctx, basePromptOutput, {reply_to_message_id: prompt.ctx.message.message_id});
-            await messageRepository.saveMessageSource(message);
+            await messageRepository.saveMessageSource({
+                messageWithContext: message
+            });
+
+            const q = await messageRepository.getById(prompt.ctx.message.message_id.toString());
+            q.answer_given = true;
+            await messageRepository.save(q);
         } catch (err) {
 
             console.error(err);

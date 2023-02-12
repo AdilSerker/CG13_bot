@@ -6,7 +6,7 @@ import {ChatGPT} from "../commands/ChatGPT";
 
 export const chatListeners: TextListener[] = [
     {
-        match: [/^gpt/i, /^пзе/i],
+        match: [/^gpt/i, /^пзе/i, /^гпт/i],
         middleware: async (ctx: TelegrafContext) => {
             await (new ChatGPT(ctx).exec());
         }
@@ -76,11 +76,11 @@ export const chatListeners: TextListener[] = [
         middleware: async (ctx: TelegrafContext) => {
             await (new TextReaction(ctx, ReactionType.LGBT).execute());
         }
-    },
+    }/*,
     {
         match: [/^[А-Яа-я]+[.,\/#!$%\^&\*;:{}=\-_`~()]*$/i],
         middleware: async (ctx: TelegrafContext) => {
             await (new TextReaction(ctx, ReactionType.Concrete).execute());
         }
-    }
+    }*/
 ];

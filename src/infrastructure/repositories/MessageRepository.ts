@@ -5,13 +5,19 @@ import { userRepository } from './UserRepository';
 import { chatRepository } from './ChatRepository';
 import { Message } from 'telegraf/typings/telegram-types';
 
+export type MessageSource = {
+    messageWithContext: Message,
+    edit?: boolean;
+    answerGiven?: boolean;
+    text?: string;
+}
 export class MessageRepository {
 
     public async getById(id: string): Promise<MessageModel> {
         return await getRepository(MessageModel).findOne(id);
     }
 
-    public async saveMessageSource(messageWithContext: Message, edit: boolean = false, text = '') {
+    public async saveMessageSource({ messageWithContext, text = '', edit = false, answerGiven = false }: MessageSource) {
         try {
             const user = messageWithContext.from;
             const chat = messageWithContext.chat;
@@ -30,6 +36,7 @@ export class MessageRepository {
                 voice: !!messageWithContext.voice,
                 photo: !!messageWithContext.photo,
                 video: !!messageWithContext.video,
+                answer_given: answerGiven,
                 edit
             }
             await this.save(message);
@@ -39,7 +46,7 @@ export class MessageRepository {
         }
     }
 
-    private async save(message: MessageModel): Promise<void> {
+    public async save(message: MessageModel): Promise<void> {
         const mess = await getRepository(MessageModel).findOne(message.id);
 
         if (mess) {

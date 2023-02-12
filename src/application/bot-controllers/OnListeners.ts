@@ -7,12 +7,11 @@ import {CreatePost} from '../../use-cases/admin-chat/CreatePost';
 import {ChatGPT} from "./commands/ChatGPT";
 import {bot} from "../../components/telegram-bot/TelegramBot";
 
-
 class Listeners {
 
     static async onMessage(ctx: TelegrafContext) {
         const userBot = await bot.telegram.getMe();
-
+        console.log('userBot.username', userBot.username);
         await (new CreatePost(ctx)).execute();
         await (new StageProcessing(ctx).exec());
 
@@ -31,7 +30,6 @@ class Listeners {
             message: ctx.message.text,
             reply_to_message: ctx.update.message && ctx.update.message.reply_to_message
         });*/
-
     }
 
     static async onEditMessage(ctx: TelegrafContext) {

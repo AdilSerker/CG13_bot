@@ -35,4 +35,7 @@ export class MessageModel {
     @Column('bool')
     edit: boolean;
 
+    @Column('bool')
+    answer_given: boolean;
+
 }
